@@ -175,7 +175,7 @@ function drawPage()
 			endIf
 		else
 			MCM.AddTextOptionST("act_txt_A2Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-			MCM.AddTextOptionST("act_txt_A2Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+			MCM.AddTextOptionST("act_txt_A2Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_txt_nonCombosDsbld</font>", "")
 		endIf
 	else
 		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
@@ -210,7 +210,7 @@ function drawPage()
 			endIf
 		else
 			MCM.AddTextOptionST("act_txt_A3Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-			MCM.AddTextOptionST("act_txt_A3Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+			MCM.AddTextOptionST("act_txt_A3Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_txt_nonCombosDsbld</font>", "")
 		endIf
 	else
 		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
@@ -245,7 +245,7 @@ function drawPage()
 			endIf
 		else
 			MCM.AddTextOptionST("act_txt_A4Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-			MCM.AddTextOptionST("act_txt_A4Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+			MCM.AddTextOptionST("act_txt_A4Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_txt_nonCombosDsbld</font>", "")
 		endIf
 	else
 		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")

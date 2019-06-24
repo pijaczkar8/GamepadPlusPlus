@@ -136,6 +136,7 @@ event OnPlayerLoadGame()
 endEvent
 
 Function RegisterKeys()
+	;debug.trace("gpp_keyhandler RegisterKeys")
 	UnregisterForAllKeys()
 	
 	; Register for action keys
@@ -148,6 +149,13 @@ Function RegisterKeys()
 	aiActionKeys[1] = GPP_KEYCODE_A2
 	aiActionKeys[2] = GPP_KEYCODE_A3
 	aiActionKeys[3] = GPP_KEYCODE_A4
+
+	;ToDo - remove following while loop, debug only
+	;int i
+	;while i < 4
+		;debug.trace("gpp_keyhandler RegisterKeys - aiActionKeys[" + i + " contains " + aiActionKeys[i])
+		;i += 1
+	;endWhile
 	
 	; Register for combo keys
 	RegisterForKey(GPP_KEYCODE_C1)
@@ -206,21 +214,26 @@ endEvent
 ; ---------------------
 
 event OnKeyDown(int KeyCode)
+	;debug.trace("gpp_keyhandler OnKeyDown - KeyCode: " + KeyCode)
 
 	bool bIsComboKey
 
 	if KeyCode == GPP_KEYCODE_C1
 		bIsC1Held = true
 		bIsComboKey = true
+		debug.notification("Gamepad++ Combo Key 1 down")
 	elseIf KeyCode == GPP_KEYCODE_C2
 		bIsC2Held = true
 		bIsComboKey = true
+		debug.notification("Gamepad++ Combo Key 2 down")
 	elseIf KeyCode == GPP_KEYCODE_C3
 		bIsC3Held = true
 		bIsComboKey = true
+		debug.notification("Gamepad++ Combo Key 3 down")
 	elseIf KeyCode == GPP_KEYCODE_C4
 		bIsC4Held = true
 		bIsComboKey = true
+		debug.notification("Gamepad++ Combo Key 4 down")
 	endif
 
     if bAllowKeyPress
@@ -248,15 +261,20 @@ event OnKeyDown(int KeyCode)
 endEvent
 
 event OnKeyUp(int KeyCode, Float HoldTime)
+	;debug.trace("gpp_keyhandler OnKeyUp - KeyCode: " + KeyCode + ", HoldTime: " + HoldTime)
     
     if KeyCode == GPP_KEYCODE_C1
 		bIsC1Held = false
+		debug.notification("Gamepad++ Combo Key 1 released")
 	elseIf KeyCode == GPP_KEYCODE_C2
 		bIsC2Held = false
+		debug.notification("Gamepad++ Combo Key 2 released")
 	elseIf KeyCode == GPP_KEYCODE_C3
 		bIsC3Held = false
+		debug.notification("Gamepad++ Combo Key 3 released")
 	elseIf KeyCode == GPP_KEYCODE_C4
 		bIsC4Held = false
+		debug.notification("Gamepad++ Combo Key 4 released")
 	endif
 
     if bAllowKeyPress && KeyCode == iWaitingKeyCode && iMultiTap == 0
@@ -266,32 +284,47 @@ event OnKeyUp(int KeyCode, Float HoldTime)
 endEvent
 
 function runUpdate()
+	;debug.trace("gpp_keyhandler runUpdate - iWaitingKeyCode: " + iWaitingKeyCode + ", iMultiTap: " + iMultiTap + ", bExtControlsEnabled: " + bExtControlsEnabled)
 
 	if iMultiTap == 1 || bExtControlsEnabled && (bNotInLootMenu || (iWaitingKeyCode != 266 || iWaitingKeyCode != 267))		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
 
 		int keyToTap
+		int i = aiActionKeys.Find(iWaitingKeyCode)
+
+		;debug.trace("gpp_keyhandler runUpdate - i: " + i)
+
+		if i != -1
 	    
-	    if bIsC1Held
-	    	keyToTap = aiC1Actions[aiActionKeys.Find(iWaitingKeyCode)*4 + iMultiTap]
-	            
-	    elseIf bIsC1Held
-	        keyToTap = aiC2Actions[aiActionKeys.Find(iWaitingKeyCode)*4 + iMultiTap]
-	        
-	    elseIf bIsC1Held
-	        keyToTap = aiC3Actions[aiActionKeys.Find(iWaitingKeyCode)*4 + iMultiTap]
-	        
-	    elseIf bIsC1Held
-	    	keyToTap = aiC4Actions[aiActionKeys.Find(iWaitingKeyCode)*4 + iMultiTap]
+		    if bIsC1Held
+		    	;debug.trace("gpp_keyhandler runUpdate - bIsC1Held")
+		    	keyToTap = aiC1Actions[i*4 + iMultiTap]
+		            
+		    elseIf bIsC2Held
+		    	;debug.trace("gpp_keyhandler runUpdate - bIsC2Held")
+		        keyToTap = aiC2Actions[i*4 + iMultiTap]
+		        
+		    elseIf bIsC3Held
+		    	;debug.trace("gpp_keyhandler runUpdate - bIsC3Held")
+		        keyToTap = aiC3Actions[i*4 + iMultiTap]
+		        
+		    elseIf bIsC4Held
+		    	;debug.trace("gpp_keyhandler runUpdate - bIsC4Held")
+		    	keyToTap = aiC4Actions[i*4 + iMultiTap]
 
-	    elseIf !biEquipLoaded || aiiEquipKeys.Find(iWaitingKeyCode) == -1													; Block all non-combo keypresses if it is an iEquip key
-	    	keyToTap = aiNonComboActions[aiActionKeys.Find(iWaitingKeyCode)*4 + iMultiTap]
+		    elseIf !biEquipLoaded || aiiEquipKeys.Find(iWaitingKeyCode) == -1													; Block all non-combo keypresses if it is an iEquip key
+		    	;debug.trace("gpp_keyhandler runUpdate - no combo key held")
+		    	keyToTap = aiNonComboActions[i*4 + iMultiTap]
 
-	    endIf
+		    endIf
 
-	    if keyToTap > 0
-	    	TapKey(keyToTap)
-	    endIf
+		    ;debug.trace("gpp_keyhandler runUpdate - keyToTap: " + keyToTap)
 
+		    if keyToTap > 0
+		    	TapKey(keyToTap)
+		    	debug.notification("Gamepad++ tapping key " + keyToTap)
+		    endIf
+
+		endIf
 	endIf
 
 endFunction
