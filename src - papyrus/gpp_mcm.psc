@@ -13,6 +13,9 @@ gpp_mcm_combo_four property ComboFour auto
 gpp_mcm_inf property inf auto
 gpp_keyhandler property KH auto
 
+int[] property aiKeyCodes auto hidden
+string[] property asKeyNames auto hidden
+
 string sCurrentPage
 
 string property MCMSettingsPath = "Data/Gamepad++/Presets/" autoReadOnly
@@ -20,6 +23,7 @@ string property FileExt = ".gpp" autoReadonly
 
 bool bBusy
 bool property bUpdateKeys auto hidden
+
 
 ; ###########################
 ; ### MCM Version Control ###
@@ -48,6 +52,42 @@ event OnConfigInit()
     Pages[5] = "$gpp_mcm_lbl_combo_four"
     Pages[6] = "$gpp_mcm_lbl_inf"
     Pages[7] = "$gpp_mcm_lbl_ctrls"
+	
+	aiKeyCodes = new int[16]
+	aiKeyCodes[0] = 266
+    aiKeyCodes[1] = 267
+	aiKeyCodes[2] = 268
+	aiKeyCodes[3] = 269
+	aiKeyCodes[4] = 270
+    aiKeyCodes[5] = 271
+	aiKeyCodes[6] = 272
+	aiKeyCodes[7] = 273
+	aiKeyCodes[8] = 274
+    aiKeyCodes[9] = 275
+	aiKeyCodes[10] = 276
+	aiKeyCodes[11] = 277
+	aiKeyCodes[12] = 278
+    aiKeyCodes[13] = 279
+	aiKeyCodes[14] = 280
+	aiKeyCodes[15] = 281
+	
+	asKeyNames = new string[16]
+	asKeyNames[0] = "$gpp_mcm_key_DPadUp"
+    asKeyNames[1] = "$gpp_mcm_key_DPadDown"
+	asKeyNames[2] = "$gpp_mcm_key_DPadLeft"
+	asKeyNames[3] = "$gpp_mcm_key_DPadRight"
+	asKeyNames[4] = "$gpp_mcm_key_Start"
+    asKeyNames[5] = "$gpp_mcm_key_Back"
+	asKeyNames[6] = "$gpp_mcm_key_LSClick"
+	asKeyNames[7] = "$gpp_mcm_key_RSClick"
+	asKeyNames[8] = "$gpp_mcm_key_LB"
+    asKeyNames[9] = "$gpp_mcm_key_RB"
+	asKeyNames[10] = "$gpp_mcm_key_A"
+	asKeyNames[11] = "$gpp_mcm_key_B"
+	asKeyNames[12] = "$gpp_mcm_key_X"
+    asKeyNames[13] = "$gpp_mcm_key_Y"
+	asKeyNames[14] = "$gpp_mcm_key_LT"
+	asKeyNames[15] = "$gpp_mcm_key_RT"
 
     gen.initData()
     act.initData()
@@ -114,17 +154,17 @@ function jumpToPage(string eventName, float tmpVar = -1.0, string tmpStr = "")
     string sCurrentState = GetState()
     
     if sCurrentPage == "$gpp_mcm_lbl_gen"
-        gen.jumpToState(sCurrentState, eventName, tmpVar)
+        gen.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     elseIf sCurrentPage == "$gpp_mcm_lbl_act"
-        act.jumpToState(sCurrentState, eventName, tmpVar)
+        act.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     elseIf sCurrentPage == "$gpp_mcm_lbl_combo_one"
-        ComboOne.jumpToState(sCurrentState, eventName, tmpVar)
+        ComboOne.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     elseIf sCurrentPage == "$gpp_mcm_lbl_combo_two"
-        ComboTwo.jumpToState(sCurrentState, eventName, tmpVar)
+        ComboTwo.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     elseIf sCurrentPage == "$gpp_mcm_lbl_combo_three"
-        ComboThree.jumpToState(sCurrentState, eventName, tmpVar)
+        ComboThree.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     elseIf sCurrentPage == "$gpp_mcm_lbl_combo_four"
-        ComboFour.jumpToState(sCurrentState, eventName, tmpVar)
+        ComboFour.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     elseIf sCurrentPage == "$gpp_mcm_lbl_inf"
         inf.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     endIf

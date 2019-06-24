@@ -114,7 +114,7 @@ endFunction
 function drawPage()
 	
 	string tmpStr
-    tmpStr = asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A1)]
+    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A1)]
 	MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
 	if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A1) == -1
 		MCM.AddKeyMapOptionST("action_A1_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[1], mcmUnmapFLAG)
@@ -134,7 +134,7 @@ function drawPage()
 
 	MCM.AddEmptyOption()
 	
-    tmpStr = asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A2)]
+    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A2)]
     MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
     if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A2) == -1
 	    MCM.AddKeyMapOptionST("action_A2_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[5], mcmUnmapFLAG)
@@ -154,7 +154,7 @@ function drawPage()
 
     MCM.SetCursorPosition(1)
 
-    tmpStr = asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A3)]
+    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A3)]
     MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
     if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A3) == -1
 	    MCM.AddKeyMapOptionST("action_A3_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[9], mcmUnmapFLAG)
@@ -174,7 +174,7 @@ function drawPage()
 
     MCM.AddEmptyOption()
     
-    tmpStr = asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A4)]
+    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A4)]
     MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
     if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A4) == -1
 	    MCM.AddKeyMapOptionST("action_A4_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[13], mcmUnmapFLAG)
