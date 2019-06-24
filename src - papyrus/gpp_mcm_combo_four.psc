@@ -241,8 +241,8 @@ State action_C4_A1_single
             else
                 KH.aiC4Actions[1] = -1
                 sC4A1SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -275,8 +275,8 @@ State action_C4_A1_double
             else
                 KH.aiC4Actions[2] = -1
                 sC4A1DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -309,8 +309,8 @@ State action_C4_A1_triple
             else
                 KH.aiC4Actions[3] = -1
                 sC4A1TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -343,8 +343,8 @@ State action_C4_A1_hold
             else
                 KH.aiC4Actions[0] = -1
                 sC4A1HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -381,8 +381,8 @@ State action_C4_A2_single
             else
                 KH.aiC4Actions[5] = -1
                 sC4A2SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -415,8 +415,8 @@ State action_C4_A2_double
             else
                 KH.aiC4Actions[6] = -1
                 sC4A2DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -449,8 +449,8 @@ State action_C4_A2_triple
             else
                 KH.aiC4Actions[7] = -1
                 sC4A2TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -483,8 +483,8 @@ State action_C4_A2_hold
             else
                 KH.aiC4Actions[4] = -1
                 sC4A2HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -521,8 +521,8 @@ State action_C4_A3_single
             else
                 KH.aiC4Actions[9] = -1
                 sC4A3SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -555,8 +555,8 @@ State action_C4_A3_double
             else
                 KH.aiC4Actions[10] = -1
                 sC4A3DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -589,8 +589,8 @@ State action_C4_A3_triple
             else
                 KH.aiC4Actions[11] = -1
                 sC4A3TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -623,8 +623,8 @@ State action_C4_A3_hold
             else
                 KH.aiC4Actions[8] = -1
                 sC4A3HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -661,8 +661,8 @@ State action_C4_A4_single
             else
                 KH.aiC4Actions[13] = -1
                 sC4A4SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -695,8 +695,8 @@ State action_C4_A4_double
             else
                 KH.aiC4Actions[14] = -1
                 sC4A4DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -729,8 +729,8 @@ State action_C4_A4_triple
             else
                 KH.aiC4Actions[15] = -1
                 sC4A4TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -763,8 +763,8 @@ State action_C4_A4_hold
             else
                 KH.aiC4Actions[12] = -1
                 sC4A4HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
