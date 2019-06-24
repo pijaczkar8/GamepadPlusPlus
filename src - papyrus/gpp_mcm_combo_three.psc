@@ -112,68 +112,110 @@ function loadData(int jPageObj)     ; Load page data from jPageObj
 endFunction
 
 function drawPage()
-    
-    string keyName = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_C3)]
 
-    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_C3) == -1
+    int keyCode = KH.GPP_KEYCODE_C3
+	
+	if keyCode > 0
+
+		string keyName = MCM.asKeyNames[MCM.aiKeyCodes.Find(keyCode)]
 	    
-	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A1)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A1_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[1], mcmUnmapFLAG)
-	    MCM.AddInputOptionST("label_C3_A1_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A1SnglLabel)
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_C3_A1_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[2], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A1_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A1DblLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A1_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[3], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A1_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A1TrplLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A1_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[0], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A1_hld", "$gpp_mcm_com_lbl_addLabel", sC3A1HldLabel)
-		endIf
-
-	    MCM.AddEmptyOption()
+	    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(keyCode) == -1
 	    
-	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A2)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A2_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[5], mcmUnmapFLAG)
-	    MCM.AddInputOptionST("label_C3_A2_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A2SnglLabel)
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_C3_A2_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[6], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A2_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A2DblLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A2_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[7], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A2_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A2TrplLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A2_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[4], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A2_hld", "$gpp_mcm_com_lbl_addLabel", sC3A2HldLabel)
-		endIf
+		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A1)] + "}")
+		    MCM.AddKeyMapOptionST("action_C3_A1_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[1], mcmUnmapFLAG)
+		    if KH.aiC3Actions[1] > 0
+		    	MCM.AddInputOptionST("label_C3_A1_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A1SnglLabel)
+		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_C3_A1_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[2], mcmUnmapFLAG)
+			    if KH.aiC3Actions[2] > 0
+			    	MCM.AddInputOptionST("label_C3_A1_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A1DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A1_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[3], mcmUnmapFLAG)
+			    if KH.aiC3Actions[3] > 0
+			    	MCM.AddInputOptionST("label_C3_A1_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A1TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A1_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[0], mcmUnmapFLAG)
+			    if KH.aiC3Actions[0] > 0
+			    	MCM.AddInputOptionST("label_C3_A1_hld", "$gpp_mcm_com_lbl_addLabel", sC3A1HldLabel)
+			    endIf
+			endIf
 
-	    MCM.SetCursorPosition(1)
+		    MCM.AddEmptyOption()
+		    
+		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A2)] + "}")
+		    MCM.AddKeyMapOptionST("action_C3_A2_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[5], mcmUnmapFLAG)
+		    if KH.aiC3Actions[5] > 0
+		    	MCM.AddInputOptionST("label_C3_A2_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A2SnglLabel)
+		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_C3_A2_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[6], mcmUnmapFLAG)
+			    if KH.aiC3Actions[6] > 0
+			    	MCM.AddInputOptionST("label_C3_A2_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A2DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A2_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[7], mcmUnmapFLAG)
+			    if KH.aiC3Actions[7] > 0
+			    	MCM.AddInputOptionST("label_C3_A2_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A2TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A2_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[4], mcmUnmapFLAG)
+			    if KH.aiC3Actions[4] > 0
+			    	MCM.AddInputOptionST("label_C3_A2_hld", "$gpp_mcm_com_lbl_addLabel", sC3A2HldLabel)
+			    endIf
+			endIf
 
-	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A3)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A3_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[9], mcmUnmapFLAG)
-	    MCM.AddInputOptionST("label_C3_A3_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A3SnglLabel)
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_C3_A3_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[10], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A3_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A3DblLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A3_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[11], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A3_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A3TrplLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A3_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[8], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A3_hld", "$gpp_mcm_com_lbl_addLabel", sC3A3HldLabel)
-		endIf
+		    MCM.SetCursorPosition(1)
 
-	    MCM.AddEmptyOption()
-	    
-	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A4)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A4_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[13], mcmUnmapFLAG)
-	    MCM.AddInputOptionST("label_C3_A4_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A4SnglLabel)
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_C3_A4_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[14], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A4_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A4DblLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A4_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[15], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A4_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A4TrplLabel)
-		    MCM.AddKeyMapOptionST("action_C3_A4_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[12], mcmUnmapFLAG)
-		    MCM.AddInputOptionST("label_C3_A4_hld", "$gpp_mcm_com_lbl_addLabel", sC3A4HldLabel)
+		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A3)] + "}")
+		    MCM.AddKeyMapOptionST("action_C3_A3_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[9], mcmUnmapFLAG)
+		    if KH.aiC3Actions[9] > 0
+		    	MCM.AddInputOptionST("label_C3_A3_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A3SnglLabel)
+		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_C3_A3_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[10], mcmUnmapFLAG)
+			    if KH.aiC3Actions[10] > 0
+			    	MCM.AddInputOptionST("label_C3_A3_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A3DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A3_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[11], mcmUnmapFLAG)
+			    if KH.aiC3Actions[11] > 0
+			    	MCM.AddInputOptionST("label_C3_A3_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A3TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A3_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[8], mcmUnmapFLAG)
+			    if KH.aiC3Actions[8] > 0
+			    	MCM.AddInputOptionST("label_C3_A3_hld", "$gpp_mcm_com_lbl_addLabel", sC3A3HldLabel)
+			    endIf
+			endIf
+
+		    MCM.AddEmptyOption()
+		    
+		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A4)] + "}")
+		    MCM.AddKeyMapOptionST("action_C3_A4_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[13], mcmUnmapFLAG)
+		    if KH.aiC3Actions[13] > 0
+		    	MCM.AddInputOptionST("label_C3_A4_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A4SnglLabel)
+		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_C3_A4_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[14], mcmUnmapFLAG)
+			    if KH.aiC3Actions[14] > 0
+			    	MCM.AddInputOptionST("label_C3_A4_dbl", "$gpp_mcm_com_lbl_addLabel", sC3A4DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A4_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC3Actions[15], mcmUnmapFLAG)
+			    if KH.aiC3Actions[15] > 0
+			    	MCM.AddInputOptionST("label_C3_A4_trpl", "$gpp_mcm_com_lbl_addLabel", sC3A4TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_C3_A4_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC3Actions[12], mcmUnmapFLAG)
+			    if KH.aiC3Actions[12] > 0
+			    	MCM.AddInputOptionST("label_C3_A4_hld", "$gpp_mcm_com_lbl_addLabel", sC3A4HldLabel)
+			    endIf
+			endIf
+
+		else
+			MCM.AddTextOptionST("C3_txt_iEquipConflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + keyName + "}", "")
+			MCM.AddTextOptionST("C3_txt_iEquipConflict_2", "<font color='#ff7417'>$gpp_mcm_com_txt_comboActionsDisabled</font>", "")
 		endIf
 
 	else
-		MCM.AddTextOptionST("C3_txt_iEquipConflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + keyName + "}", "")
-		MCM.AddTextOptionST("C3_txt_iEquipConflict_2", "<font color='#ff7417'>$gpp_mcm_com_txt_comboActionsDisabled</font>", "")
+		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
+		MCM.AddTextOptionST("C3_txt_C3NoKey", "$gpp_mcm_com_txt_noKey1", "")
+		MCM.AddTextOptionST("C3_txt_C3NoKey2", "$gpp_mcm_com_txt_noKey2", "")
 	endIf
 
 endFunction

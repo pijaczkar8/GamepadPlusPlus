@@ -150,86 +150,107 @@ function drawPage()
 
 	MCM.AddEmptyOption()
 	
-    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A2)]
-    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
-    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A2) == -1
-	    MCM.AddKeyMapOptionST("action_A2_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[5], mcmUnmapFLAG)
-	    if KH.aiNonComboActions[5] > 0
-	    	MCM.AddInputOptionST("label_A2_sngl", "$gpp_mcm_com_lbl_addLabel", sA2SnglLabel)
-	    endIf
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_A2_double", "$gpp_mcm_com_lbl_double", KH.aiNonComboActions[6], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[6] > 0
-		    	MCM.AddInputOptionST("label_A2_dbl", "$gpp_mcm_com_lbl_addLabel", sA2DblLabel)
+    keyCode = KH.GPP_KEYCODE_A2
+	if keyCode > 0
+	    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(keyCode)]
+	    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
+	    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(keyCode) == -1
+		    MCM.AddKeyMapOptionST("action_A2_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[5], mcmUnmapFLAG)
+		    if KH.aiNonComboActions[5] > 0
+		    	MCM.AddInputOptionST("label_A2_sngl", "$gpp_mcm_com_lbl_addLabel", sA2SnglLabel)
 		    endIf
-		    MCM.AddKeyMapOptionST("action_A2_triple", "$gpp_mcm_com_lbl_triple", KH.aiNonComboActions[7], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[7] > 0
-		    	MCM.AddInputOptionST("label_A2_trpl", "$gpp_mcm_com_lbl_addLabel", sA2TrplLabel)
-		    endIf
-		    MCM.AddKeyMapOptionST("action_A2_hold", "$gpp_mcm_com_lbl_hold", KH.aiNonComboActions[4], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[4] > 0
-		    	MCM.AddInputOptionST("label_A2_hld", "$gpp_mcm_com_lbl_addLabel", sA2HldLabel)
-		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_A2_double", "$gpp_mcm_com_lbl_double", KH.aiNonComboActions[6], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[6] > 0
+			    	MCM.AddInputOptionST("label_A2_dbl", "$gpp_mcm_com_lbl_addLabel", sA2DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_A2_triple", "$gpp_mcm_com_lbl_triple", KH.aiNonComboActions[7], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[7] > 0
+			    	MCM.AddInputOptionST("label_A2_trpl", "$gpp_mcm_com_lbl_addLabel", sA2TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_A2_hold", "$gpp_mcm_com_lbl_hold", KH.aiNonComboActions[4], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[4] > 0
+			    	MCM.AddInputOptionST("label_A2_hld", "$gpp_mcm_com_lbl_addLabel", sA2HldLabel)
+			    endIf
+			endIf
+		else
+			MCM.AddTextOptionST("act_txt_A2Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
+			MCM.AddTextOptionST("act_txt_A2Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
 		endIf
 	else
-		MCM.AddTextOptionST("act_txt_A2Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-		MCM.AddTextOptionST("act_txt_A2Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
+		MCM.AddTextOptionST("act_txt_A2NoKey", "$gpp_mcm_com_txt_noKey1", "")
+		MCM.AddTextOptionST("act_txt_A2NoKey2", "$gpp_mcm_com_txt_noKey2", "")
 	endIf
 
     MCM.SetCursorPosition(1)
 
-    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A3)]
-    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
-    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A3) == -1
-	    MCM.AddKeyMapOptionST("action_A3_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[9], mcmUnmapFLAG)
-	    if KH.aiNonComboActions[9] > 0
-	    	MCM.AddInputOptionST("label_A3_sngl", "$gpp_mcm_com_lbl_addLabel", sA3SnglLabel)
-	    endIf
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_A3_double", "$gpp_mcm_com_lbl_double", KH.aiNonComboActions[10], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[10] > 0
-		    	MCM.AddInputOptionST("label_A3_dbl", "$gpp_mcm_com_lbl_addLabel", sA3DblLabel)
+    keyCode = KH.GPP_KEYCODE_A2
+	if keyCode > 0
+	    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(keyCode)]
+	    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
+	    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(keyCode) == -1
+		    MCM.AddKeyMapOptionST("action_A3_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[9], mcmUnmapFLAG)
+		    if KH.aiNonComboActions[9] > 0
+		    	MCM.AddInputOptionST("label_A3_sngl", "$gpp_mcm_com_lbl_addLabel", sA3SnglLabel)
 		    endIf
-		    MCM.AddKeyMapOptionST("action_A3_triple", "$gpp_mcm_com_lbl_triple", KH.aiNonComboActions[11], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[11] > 0
-		    	MCM.AddInputOptionST("label_A3_trpl", "$gpp_mcm_com_lbl_addLabel", sA3TrplLabel)
-		    endIf
-		    MCM.AddKeyMapOptionST("action_A3_hold", "$gpp_mcm_com_lbl_hold", KH.aiNonComboActions[8], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[8] > 0
-		    	MCM.AddInputOptionST("label_A3_hld", "$gpp_mcm_com_lbl_addLabel", sA3HldLabel)
-		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_A3_double", "$gpp_mcm_com_lbl_double", KH.aiNonComboActions[10], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[10] > 0
+			    	MCM.AddInputOptionST("label_A3_dbl", "$gpp_mcm_com_lbl_addLabel", sA3DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_A3_triple", "$gpp_mcm_com_lbl_triple", KH.aiNonComboActions[11], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[11] > 0
+			    	MCM.AddInputOptionST("label_A3_trpl", "$gpp_mcm_com_lbl_addLabel", sA3TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_A3_hold", "$gpp_mcm_com_lbl_hold", KH.aiNonComboActions[8], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[8] > 0
+			    	MCM.AddInputOptionST("label_A3_hld", "$gpp_mcm_com_lbl_addLabel", sA3HldLabel)
+			    endIf
+			endIf
+		else
+			MCM.AddTextOptionST("act_txt_A3Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
+			MCM.AddTextOptionST("act_txt_A3Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
 		endIf
 	else
-		MCM.AddTextOptionST("act_txt_A3Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-		MCM.AddTextOptionST("act_txt_A3Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
+		MCM.AddTextOptionST("act_txt_A3NoKey", "$gpp_mcm_com_txt_noKey1", "")
+		MCM.AddTextOptionST("act_txt_A3NoKey2", "$gpp_mcm_com_txt_noKey2", "")
 	endIf
 
     MCM.AddEmptyOption()
     
-    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A4)]
-    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
-    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_A4) == -1
-	    MCM.AddKeyMapOptionST("action_A4_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[13], mcmUnmapFLAG)
-	    if KH.aiNonComboActions[13] > 0
-	    	MCM.AddInputOptionST("label_A4_sngl", "$gpp_mcm_com_lbl_addLabel", sA4SnglLabel)
-	    endIf
-	    if KH.bExtControlsEnabled
-		    MCM.AddKeyMapOptionST("action_A4_double", "$gpp_mcm_com_lbl_double", KH.aiNonComboActions[14], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[14] > 0
-		    	MCM.AddInputOptionST("label_A4_dbl", "$gpp_mcm_com_lbl_addLabel", sA4DblLabel)
+    keyCode = KH.GPP_KEYCODE_A4
+	if keyCode > 0
+	    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(keyCode)]
+	    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
+	    if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(keyCode) == -1
+		    MCM.AddKeyMapOptionST("action_A4_single", "$gpp_mcm_com_lbl_single", KH.aiNonComboActions[13], mcmUnmapFLAG)
+		    if KH.aiNonComboActions[13] > 0
+		    	MCM.AddInputOptionST("label_A4_sngl", "$gpp_mcm_com_lbl_addLabel", sA4SnglLabel)
 		    endIf
-		    MCM.AddKeyMapOptionST("action_A4_triple", "$gpp_mcm_com_lbl_triple", KH.aiNonComboActions[15], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[15] > 0
-		    	MCM.AddInputOptionST("label_A4_trpl", "$gpp_mcm_com_lbl_addLabel", sA4TrplLabel)
-		    endIf
-		    MCM.AddKeyMapOptionST("action_A4_hold", "$gpp_mcm_com_lbl_hold", KH.aiNonComboActions[12], mcmUnmapFLAG)
-		    if KH.aiNonComboActions[12] > 0
-		    	MCM.AddInputOptionST("label_A4_hld", "$gpp_mcm_com_lbl_addLabel", sA4HldLabel)
-		    endIf
+		    if KH.bExtControlsEnabled
+			    MCM.AddKeyMapOptionST("action_A4_double", "$gpp_mcm_com_lbl_double", KH.aiNonComboActions[14], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[14] > 0
+			    	MCM.AddInputOptionST("label_A4_dbl", "$gpp_mcm_com_lbl_addLabel", sA4DblLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_A4_triple", "$gpp_mcm_com_lbl_triple", KH.aiNonComboActions[15], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[15] > 0
+			    	MCM.AddInputOptionST("label_A4_trpl", "$gpp_mcm_com_lbl_addLabel", sA4TrplLabel)
+			    endIf
+			    MCM.AddKeyMapOptionST("action_A4_hold", "$gpp_mcm_com_lbl_hold", KH.aiNonComboActions[12], mcmUnmapFLAG)
+			    if KH.aiNonComboActions[12] > 0
+			    	MCM.AddInputOptionST("label_A4_hld", "$gpp_mcm_com_lbl_addLabel", sA4HldLabel)
+			    endIf
+			endIf
+		else
+			MCM.AddTextOptionST("act_txt_A4Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
+			MCM.AddTextOptionST("act_txt_A4Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
 		endIf
 	else
-		MCM.AddTextOptionST("act_txt_A4Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-		MCM.AddTextOptionST("act_txt_A4Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
+		MCM.AddTextOptionST("act_txt_A4NoKey", "$gpp_mcm_com_txt_noKey1", "")
+		MCM.AddTextOptionST("act_txt_A4NoKey2", "$gpp_mcm_com_txt_noKey2", "")
 	endIf
 
 endFunction
