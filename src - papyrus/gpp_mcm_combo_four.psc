@@ -1,4 +1,4 @@
-Scriptname gpp_mcm_C4 extends gpp_mcm_page
+Scriptname gpp_mcm_combo_four extends gpp_mcm_page
 
 int mcmUnmapFLAG
 

@@ -1,4 +1,4 @@
-Scriptname gpp_mcm_C3 extends gpp_mcm_page
+Scriptname gpp_mcm_combo_three extends gpp_mcm_page
 
 int mcmUnmapFLAG
 
@@ -118,7 +118,7 @@ function drawPage()
     if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_C3) == -1
 	    
 	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A1)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A1_single", "$gpp_mcm_com_combosingle", KH.aiC3Actions[1], mcmUnmapFLAG)
+	    MCM.AddKeyMapOptionST("action_C3_A1_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[1], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C3_A1_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A1SnglLabel)
 	    if KH.bExtControlsEnabled
 		    MCM.AddKeyMapOptionST("action_C3_A1_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[2], mcmUnmapFLAG)
@@ -132,7 +132,7 @@ function drawPage()
 	    MCM.AddEmptyOption()
 	    
 	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A2)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A2_single", "$gpp_mcm_com_combosingle", KH.aiC3Actions[5], mcmUnmapFLAG)
+	    MCM.AddKeyMapOptionST("action_C3_A2_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[5], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C3_A2_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A2SnglLabel)
 	    if KH.bExtControlsEnabled
 		    MCM.AddKeyMapOptionST("action_C3_A2_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[6], mcmUnmapFLAG)
@@ -146,7 +146,7 @@ function drawPage()
 	    MCM.SetCursorPosition(1)
 
 	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A3)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A3_single", "$gpp_mcm_com_combosingle", KH.aiC3Actions[9], mcmUnmapFLAG)
+	    MCM.AddKeyMapOptionST("action_C3_A3_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[9], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C3_A3_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A3SnglLabel)
 	    if KH.bExtControlsEnabled
 		    MCM.AddKeyMapOptionST("action_C3_A3_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[10], mcmUnmapFLAG)
@@ -160,7 +160,7 @@ function drawPage()
 	    MCM.AddEmptyOption()
 	    
 	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A4)] + "}")
-	    MCM.AddKeyMapOptionST("action_C3_A4_single", "$gpp_mcm_com_combosingle", KH.aiC3Actions[13], mcmUnmapFLAG)
+	    MCM.AddKeyMapOptionST("action_C3_A4_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC3Actions[13], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C3_A4_sngl", "$gpp_mcm_com_lbl_addLabel", sC3A4SnglLabel)
 	    if KH.bExtControlsEnabled
 		    MCM.AddKeyMapOptionST("action_C3_A4_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC3Actions[14], mcmUnmapFLAG)

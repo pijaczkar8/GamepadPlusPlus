@@ -6,10 +6,10 @@ import Utility
 
 gpp_mcm_gen property gen auto
 gpp_mcm_act property act auto
-gpp_mcm_C1 property C1 auto
-gpp_mcm_C2 property C2 auto
-gpp_mcm_C3 property C3 auto
-gpp_mcm_C4 property C4 auto
+gpp_mcm_combo_one property ComboOne auto
+gpp_mcm_combo_two property ComboTwo auto
+gpp_mcm_combo_three property ComboThree auto
+gpp_mcm_combo_four property ComboFour auto
 gpp_mcm_inf property inf auto
 gpp_keyhandler property KH auto
 
@@ -42,19 +42,19 @@ event OnConfigInit()
     Pages = new String[8]
     Pages[0] = "$gpp_mcm_lbl_gen"
     Pages[1] = "$gpp_mcm_lbl_act"
-    Pages[2] = "$gpp_mcm_lbl_com1"
-    Pages[3] = "$gpp_mcm_lbl_com2"
-    Pages[4] = "$gpp_mcm_lbl_com3"
-    Pages[5] = "$gpp_mcm_lbl_com4"
+    Pages[2] = "$gpp_mcm_lbl_combo_one"
+    Pages[3] = "$gpp_mcm_lbl_combo_two"
+    Pages[4] = "$gpp_mcm_lbl_combo_three"
+    Pages[5] = "$gpp_mcm_lbl_combo_four"
     Pages[6] = "$gpp_mcm_lbl_inf"
     Pages[7] = "$gpp_mcm_lbl_ctrls"
 
     gen.initData()
     act.initData()
-    C1.initData()
-    C2.initData()
-    C3.initData()
-    C4.initData()
+    ComboOne.initData()
+    ComboTwo.initData()
+    ComboThree.initData()
+    ComboFour.initData()
     inf.initData()          
 
     RegisterForKey(KH.GPP_HOTKEY_TIM)
@@ -96,14 +96,14 @@ event OnPageReset(string page)
 			gen.drawPage()
 		elseIf page == "$gpp_mcm_lbl_act" 
 			act.drawPage()
-        elseIf page == "$gpp_mcm_lbl_C1" 
-            C1.drawPage()
-        elseIf page == "$gpp_mcm_lbl_C2" 
-            C2.drawPage()
-        elseIf page == "$gpp_mcm_lbl_C3" 
-            C3.drawPage()
-        elseIf page == "$gpp_mcm_lbl_C4" 
-            C4.drawPage()
+        elseIf page == "$gpp_mcm_lbl_combo_one" 
+            ComboOne.drawPage()
+        elseIf page == "$gpp_mcm_lbl_combo_two" 
+            ComboTwo.drawPage()
+        elseIf page == "$gpp_mcm_lbl_combo_three" 
+            ComboThree.drawPage()
+        elseIf page == "$gpp_mcm_lbl_combo_four" 
+            ComboFour.drawPage()
 		elseIf page == "$gpp_mcm_lbl_inf" 
 			inf.drawPage()
 		endIf
@@ -117,14 +117,14 @@ function jumpToPage(string eventName, float tmpVar = -1.0, string tmpStr = "")
         gen.jumpToState(sCurrentState, eventName, tmpVar)
     elseIf sCurrentPage == "$gpp_mcm_lbl_act"
         act.jumpToState(sCurrentState, eventName, tmpVar)
-    elseIf sCurrentPage == "$gpp_mcm_lbl_C1"
-        C1.jumpToState(sCurrentState, eventName, tmpVar)
-    elseIf sCurrentPage == "$gpp_mcm_lbl_C2"
-        C2.jumpToState(sCurrentState, eventName, tmpVar)
-    elseIf sCurrentPage == "$gpp_mcm_lbl_C3"
-        C3.jumpToState(sCurrentState, eventName, tmpVar)
-    elseIf sCurrentPage == "$gpp_mcm_lbl_C4"
-        C4.jumpToState(sCurrentState, eventName, tmpVar)
+    elseIf sCurrentPage == "$gpp_mcm_lbl_combo_one"
+        ComboOne.jumpToState(sCurrentState, eventName, tmpVar)
+    elseIf sCurrentPage == "$gpp_mcm_lbl_combo_two"
+        ComboTwo.jumpToState(sCurrentState, eventName, tmpVar)
+    elseIf sCurrentPage == "$gpp_mcm_lbl_combo_three"
+        ComboThree.jumpToState(sCurrentState, eventName, tmpVar)
+    elseIf sCurrentPage == "$gpp_mcm_lbl_combo_four"
+        ComboFour.jumpToState(sCurrentState, eventName, tmpVar)
     elseIf sCurrentPage == "$gpp_mcm_lbl_inf"
         inf.jumpToState(sCurrentState, eventName, tmpVar, tmpStr)
     endIf
@@ -219,10 +219,10 @@ function savePreset(string presetName)	; Save data to JContainer file
 	jMap.setInt(jMCMPreset, "Version", GetVersion())
 	jMap.setObj(jMCMPreset, "General", gen.saveData())
 	jMap.setObj(jMCMPreset, "Actions", act.saveData())
-    jMap.setObj(jMCMPreset, "Combo1", C1.saveData())
-    jMap.setObj(jMCMPreset, "Combo2", C2.saveData())
-    jMap.setObj(jMCMPreset, "Combo3", C3.saveData())
-    jMap.setObj(jMCMPreset, "Combo4", C4.saveData())
+    jMap.setObj(jMCMPreset, "Combo1", ComboOne.saveData())
+    jMap.setObj(jMCMPreset, "Combo2", ComboTwo.saveData())
+    jMap.setObj(jMCMPreset, "Combo3", ComboThree.saveData())
+    jMap.setObj(jMCMPreset, "Combo4", ComboFour.saveData())
 	
 	jValue.writeTofile(jMCMPreset, MCMSettingsPath + presetName + FileExt)
 	jValue.zeroLifetime(jMCMPreset)
@@ -247,10 +247,10 @@ function loadPreset(string presetName, bool bNoExt = false)	; Load MCM data
 			
 			gen.loadData(jMap.getObj(jMCMPreset, "General"))
 			act.loadData(jMap.getObj(jMCMPreset, "Actions"))
-            C1.loadData(jMap.getObj(jMCMPreset, "Combo1"))
-            C2.loadData(jMap.getObj(jMCMPreset, "Combo2"))
-            C3.loadData(jMap.getObj(jMCMPreset, "Combo3"))
-            C4.loadData(jMap.getObj(jMCMPreset, "Combo4"))
+            ComboOne.loadData(jMap.getObj(jMCMPreset, "Combo1"))
+            ComboTwo.loadData(jMap.getObj(jMCMPreset, "Combo2"))
+            ComboThree.loadData(jMap.getObj(jMCMPreset, "Combo3"))
+            ComboFour.loadData(jMap.getObj(jMCMPreset, "Combo4"))
 
             KH.RegisterKeys()
             SendModEvent("GPP_ComboKeysUpdated")
