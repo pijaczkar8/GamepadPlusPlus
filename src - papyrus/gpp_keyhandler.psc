@@ -1,6 +1,7 @@
 Scriptname gpp_keyhandler extends ReferenceAlias
 
 import Input
+import Game
 
 ; Action Keys
 int property GPP_KEYCODE_A1 = 268 auto hidden 		; Default: DPad Left
@@ -58,7 +59,6 @@ bool property biEquipLoaded auto hidden
 int[] property aiiEquipKeys auto hidden
 
 Event OnInit()
-
 	aiNonComboActions = new int[16]
 	aiC1Actions = new int[16]
 	aiC2Actions = new int[16]
@@ -76,15 +76,14 @@ Event OnInit()
 	endWhile
 
 	aiActionKeys = new int[4]
-
 	aiiEquipKeys = new int[5]
 	
 	OnPlayerLoadGame()
 EndEvent
 
 event OnPlayerLoadGame()
-
 	GotoState("")
+    UnregisterForUpdate()
     
     RegisterForMenu("InventoryMenu")
     RegisterForMenu("MagicMenu")
@@ -113,23 +112,24 @@ event OnPlayerLoadGame()
     bIsC2Held = false
     bIsC3Held = false
     bIsC4Held = false
-    UnregisterForUpdate()
     iWaitingKeyCode = 0
     iMultiTap = 0
     bAllowKeyPress = true
 
-	biEquipLoaded = Game.GetModByName("iEquip.esp") != 255
+	biEquipLoaded = GetModByName("iEquip.esp") != 255
 
 	if biEquipLoaded
-		updateiEquipKeysArray()
-		Self.RegisterForModEvent("iEquip_KeysUpdated", "oniEquipKeysUpdated")
+		RegisterForModEvent("iEquip_KeysUpdated", "OniEquipKeysUpdated")
+        SendModEvent("iEquip_KeysUpdated")
 	else
 		int i
+        
 		while i < 5
 			aiiEquipKeys[i] = -1
 			i += 1
 		endWhile
-		Self.UnregisterForModEvent("iEquip_KeysUpdated")
+        
+		UnregisterForModEvent("iEquip_KeysUpdated")
 	endIf
 
 	RegisterKeys()
@@ -167,17 +167,13 @@ Function RegisterKeys()
 	endif
 EndFunction
 
-event oniEquipKeysUpdated(string sEventName, string sStringArg, Float fNumArg, Form kSender)
-	updateiEquipKeysArray()
+event OniEquipKeysUpdated(string sEventName, string sStringArg, Float fNumArg, Form kSender)
+	aiiEquipKeys[0] = (GetFormFromFile(0x00113B9F, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipLeftKey
+	aiiEquipKeys[1] = (GetFormFromFile(0x00113BA0, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipRightKey
+	aiiEquipKeys[2] = (GetFormFromFile(0x00113BA1, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipShoutKey
+	aiiEquipKeys[3] = (GetFormFromFile(0x00113BA2, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipConsumableKey
+	aiiEquipKeys[4] = (GetFormFromFile(0x00113BA3, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipUtilityKey
 endEvent
-
-function updateiEquipKeysArray()
-	aiiEquipKeys[0] = (Game.GetFormFromFile(0x00113B9F, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipLeftKey
-	aiiEquipKeys[1] = (Game.GetFormFromFile(0x00113BA0, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipRightKey
-	aiiEquipKeys[2] = (Game.GetFormFromFile(0x00113BA1, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipShoutKey
-	aiiEquipKeys[3] = (Game.GetFormFromFile(0x00113BA2, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipConsumableKey
-	aiiEquipKeys[4] = (Game.GetFormFromFile(0x00113BA3, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipUtilityKey
-endFunction
 
 event OnMenuOpen(string MenuName)
     if MenuName == "LootMenu"
@@ -185,9 +181,6 @@ event OnMenuOpen(string MenuName)
     else
         sPreviousState = GetState()
         GoToState("DISABLED")
-        UnregisterForUpdate()
-        iWaitingKeyCode = 0
-        iMultiTap = 0
     endIf
 endEvent
 
@@ -202,7 +195,32 @@ endEvent
 event OnUpdate()
     bAllowKeyPress = false
     
-    runUpdate()
+	if iMultiTap == 1 || bExtControlsEnabled && (bNotInLootMenu || (iWaitingKeyCode != 266 || iWaitingKeyCode != 267))		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
+
+		int keyToTap
+	    
+	    if bIsC1Held
+	    	keyToTap = aiC1Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+	            
+	    elseIf bIsC1Held
+	        keyToTap = aiC2Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+	        
+	    elseIf bIsC1Held
+	        keyToTap = aiC3Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+	        
+	    elseIf bIsC1Held
+	    	keyToTap = aiC4Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+
+	    elseIf !biEquipLoaded || aiiEquipKeys.Find(iWaitingKeyCode) == -1													; Block all non-combo keypresses if it is an iEquip key
+	    	keyToTap = aiNonComboActions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+
+	    endIf
+
+	    if keyToTap > 0
+	    	TapKey(keyToTap)
+	    endIf
+
+	endIf
     
     iMultiTap = 0
     iWaitingKeyCode = 0
@@ -238,8 +256,7 @@ event OnKeyDown(int KeyCode)
 
     if bAllowKeyPress
         if KeyCode != iWaitingKeyCode && iWaitingKeyCode != 0
-            if !bIsComboKey
-                ; The player pressed a different key, so force the current one to process if there is one
+            if !bIsComboKey     ; The player pressed a different key, so force the current one to process if there is one
                 UnregisterForUpdate()
                 OnUpdate()
             else
@@ -321,7 +338,7 @@ function runUpdate()
 
 		    if keyToTap > 0
 		    	TapKey(keyToTap)
-		    	debug.notification("Gamepad++ tapping key " + keyToTap)
+		    	;debug.notification("Gamepad++ tapping key " + keyToTap)
 		    endIf
 
 		endIf
@@ -332,7 +349,10 @@ endFunction
 ; - Disabled
 state DISABLED
     event OnBeginState()
+        UnregisterForUpdate()
         bAllowKeyPress = false
+        iWaitingKeyCode = 0
+        iMultiTap = 0
     endEvent
     
     event OnEndState()
