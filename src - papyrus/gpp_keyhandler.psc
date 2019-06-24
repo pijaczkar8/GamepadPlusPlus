@@ -78,10 +78,10 @@ Event OnInit()
 	aiActionKeys = new int[4]
 	aiiEquipKeys = new int[5]
 	
-	OnPlayerLoad()
+	OnPlayerLoadGame()
 EndEvent
 
-event OnPlayerLoad)
+event OnPlayerLoadGame()
 	GotoState("")
     UnregisterForUpdate()
     
