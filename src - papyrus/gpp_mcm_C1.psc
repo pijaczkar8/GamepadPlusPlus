@@ -29,7 +29,7 @@ function initData()                  ; Initialize page specific data
     mcmUnmapFLAG = MCM.OPTION_FLAG_WITH_UNMAP
 endFunction
 
-int function sC1AveData()             ; sC1Ave page data and return jObject
+int function saveData()             ; sC1Ave page data and return jObject
     int jPageObj = jArray.object()
 
     jArray.addInt(jPageObj, KH.aiC1Actions[1])
@@ -112,15 +112,12 @@ function loadData(int jPageObj)     ; Load page data from jPageObj
 endFunction
 
 function drawPage()
-    
+    debug.trace("gpp_mcm_C1 drawPage - KH.biEquipLoaded: " + KH.biEquipLoaded + ", key conflict with iEquip: " + (KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_C1) == -1))
     string keyName = asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_C1)]
-    string tmpStr
 
     if !KH.biEquipLoaded || KH.aiiEquipKeys.Find(KH.GPP_KEYCODE_C1) == -1
 	    
-	    tmpStr = keyName + " + " + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A1)] + " " + "$gpp_mcm_com_lbl_comboActions"
-	    MCM.AddHeaderOption("<font color='#C1A57A'>tmpStr</font>")
-	    MCM.AddEmptyOption()
+	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A1)] + "}")
 	    MCM.AddKeyMapOptionST("action_C1_A1_single", "$gpp_mcm_com_combosingle", KH.aiC1Actions[1], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C1_A1_sngl", "gpp_mcm_com_lbl_addLabel", sC1A1SnglLabel)
 	    if KH.bExtControlsEnabled
@@ -134,9 +131,7 @@ function drawPage()
 
 	    MCM.AddEmptyOption()
 	    
-	    tmpStr = keyName + " + " + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A2)] + " " + "$gpp_mcm_com_lbl_comboActions"
-	    MCM.AddHeaderOption("<font color='#C1A57A'>tmpStr</font>")
-	    MCM.AddEmptyOption()
+	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A2)] + "}")
 	    MCM.AddKeyMapOptionST("action_C1_A2_single", "$gpp_mcm_com_combosingle", KH.aiC1Actions[5], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C1_A2_sngl", "gpp_mcm_com_lbl_addLabel", sC1A2SnglLabel)
 	    if KH.bExtControlsEnabled
@@ -150,9 +145,7 @@ function drawPage()
 
 	    MCM.SetCursorPosition(1)
 
-	    tmpStr = keyName + " + " + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A3)] + " " + "$gpp_mcm_com_lbl_comboActions"
-	    MCM.AddHeaderOption("<font color='#C1A57A'>tmpStr</font>")
-	    MCM.AddEmptyOption()
+	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A3)] + "}")
 	    MCM.AddKeyMapOptionST("action_C1_A3_single", "$gpp_mcm_com_combosingle", KH.aiC1Actions[9], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C1_A3_sngl", "gpp_mcm_com_lbl_addLabel", sC1A3SnglLabel)
 	    if KH.bExtControlsEnabled
@@ -166,9 +159,7 @@ function drawPage()
 
 	    MCM.AddEmptyOption()
 	    
-	    tmpStr = keyName + " + " + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A4)] + " " + "$gpp_mcm_com_lbl_comboActions"
-	    MCM.AddHeaderOption("<font color='#C1A57A'>tmpStr</font>")
-	    MCM.AddEmptyOption()
+	    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + asKeyNames[aiKeyCodes.Find(KH.GPP_KEYCODE_A4)] + "}")
 	    MCM.AddKeyMapOptionST("action_C1_A4_single", "$gpp_mcm_com_combosingle", KH.aiC1Actions[13], mcmUnmapFLAG)
 	    MCM.AddInputOptionST("label_C1_A4_sngl", "gpp_mcm_com_lbl_addLabel", sC1A4SnglLabel)
 	    if KH.bExtControlsEnabled
@@ -181,8 +172,7 @@ function drawPage()
 		endIf
 
 	else
-		tmpStr = keyName + " " + "$gpp_mcm_com_txt_iEquipConflict"
-		MCM.AddTextOptionST("C1_txt_iEquipConflict_1", "<font color='#ff7417'>tmpStr</font>", "")
+		MCM.AddTextOptionST("C1_txt_iEquipConflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + keyName + "}", "")
 		MCM.AddTextOptionST("C1_txt_iEquipConflict_2", "<font color='#ff7417'>$gpp_mcm_com_txt_comboActionsDisabled</font>", "")
 	endIf
 
