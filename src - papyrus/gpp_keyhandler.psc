@@ -198,27 +198,32 @@ event OnUpdate()
 	if iMultiTap == 1 || bExtControlsEnabled && (bNotInLootMenu || (iWaitingKeyCode != 266 || iWaitingKeyCode != 267))		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
 
 		int keyToTap
+		int i = aiActionKeys.Find(iWaitingKeyCode)
+
+		if i != -1
 	    
-	    if bIsC1Held
-	    	keyToTap = aiC1Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
-	            
-	    elseIf bIsC1Held
-	        keyToTap = aiC2Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
-	        
-	    elseIf bIsC1Held
-	        keyToTap = aiC3Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
-	        
-	    elseIf bIsC1Held
-	    	keyToTap = aiC4Actions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+		    if bIsC1Held
+		    	keyToTap = aiC1Actions[i*4 + iMultiTap]
+		            
+		    elseIf bIsC2Held
+		        keyToTap = aiC2Actions[i*4 + iMultiTap]
+		        
+		    elseIf bIsC3Held
+		        keyToTap = aiC3Actions[i*4 + iMultiTap]
+		        
+		    elseIf bIsC4Held
+		    	keyToTap = aiC4Actions[i*4 + iMultiTap]
 
-	    elseIf !biEquipLoaded || aiiEquipKeys.Find(iWaitingKeyCode) == -1													; Block all non-combo keypresses if it is an iEquip key
-	    	keyToTap = aiNonComboActions[aiActionKeys.Find(iWaitingKeyCode) * 4 + iMultiTap]
+		    elseIf !biEquipLoaded || aiiEquipKeys.Find(iWaitingKeyCode) == -1													; Block all non-combo keypresses if it is an iEquip key
+		    	keyToTap = aiNonComboActions[i*4 + iMultiTap]
 
-	    endIf
+		    endIf
 
-	    if keyToTap > 0
-	    	TapKey(keyToTap)
-	    endIf
+		    if keyToTap > 0
+		    	TapKey(keyToTap)
+		    endIf
+
+		endIf
 
 	endIf
     
@@ -299,52 +304,6 @@ event OnKeyUp(int KeyCode, Float HoldTime)
         RegisterForSingleUpdate(fMultiTapDelay)
     endIf
 endEvent
-
-function runUpdate()
-	;debug.trace("gpp_keyhandler runUpdate - iWaitingKeyCode: " + iWaitingKeyCode + ", iMultiTap: " + iMultiTap + ", bExtControlsEnabled: " + bExtControlsEnabled)
-
-	if iMultiTap == 1 || bExtControlsEnabled && (bNotInLootMenu || (iWaitingKeyCode != 266 || iWaitingKeyCode != 267))		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
-
-		int keyToTap
-		int i = aiActionKeys.Find(iWaitingKeyCode)
-
-		;debug.trace("gpp_keyhandler runUpdate - i: " + i)
-
-		if i != -1
-	    
-		    if bIsC1Held
-		    	;debug.trace("gpp_keyhandler runUpdate - bIsC1Held")
-		    	keyToTap = aiC1Actions[i*4 + iMultiTap]
-		            
-		    elseIf bIsC2Held
-		    	;debug.trace("gpp_keyhandler runUpdate - bIsC2Held")
-		        keyToTap = aiC2Actions[i*4 + iMultiTap]
-		        
-		    elseIf bIsC3Held
-		    	;debug.trace("gpp_keyhandler runUpdate - bIsC3Held")
-		        keyToTap = aiC3Actions[i*4 + iMultiTap]
-		        
-		    elseIf bIsC4Held
-		    	;debug.trace("gpp_keyhandler runUpdate - bIsC4Held")
-		    	keyToTap = aiC4Actions[i*4 + iMultiTap]
-
-		    elseIf !biEquipLoaded || aiiEquipKeys.Find(iWaitingKeyCode) == -1													; Block all non-combo keypresses if it is an iEquip key
-		    	;debug.trace("gpp_keyhandler runUpdate - no combo key held")
-		    	keyToTap = aiNonComboActions[i*4 + iMultiTap]
-
-		    endIf
-
-		    ;debug.trace("gpp_keyhandler runUpdate - keyToTap: " + keyToTap)
-
-		    if keyToTap > 0
-		    	TapKey(keyToTap)
-		    	;debug.notification("Gamepad++ tapping key " + keyToTap)
-		    endIf
-
-		endIf
-	endIf
-
-endFunction
 
 ; - Disabled
 state DISABLED
