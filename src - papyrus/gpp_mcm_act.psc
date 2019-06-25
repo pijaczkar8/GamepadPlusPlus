@@ -175,7 +175,7 @@ function drawPage()
 			endIf
 		else
 			MCM.AddTextOptionST("act_txt_A2Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-			MCM.AddTextOptionST("act_txt_A2Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+			MCM.AddTextOptionST("act_txt_A2Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_txt_nonCombosDsbld</font>", "")
 		endIf
 	else
 		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
@@ -210,7 +210,7 @@ function drawPage()
 			endIf
 		else
 			MCM.AddTextOptionST("act_txt_A3Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-			MCM.AddTextOptionST("act_txt_A3Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+			MCM.AddTextOptionST("act_txt_A3Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_txt_nonCombosDsbld</font>", "")
 		endIf
 	else
 		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
@@ -245,7 +245,7 @@ function drawPage()
 			endIf
 		else
 			MCM.AddTextOptionST("act_txt_A4Conflict_1", "$gpp_mcm_com_txt_iEquipConflict{" + tmpStr + "}", "")
-			MCM.AddTextOptionST("act_txt_A4Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_lbl_nonCombosDsbld</font>", "")
+			MCM.AddTextOptionST("act_txt_A4Conflict_2", "<font color='#ff7417'>$gpp_mcm_act_txt_nonCombosDsbld</font>", "")
 		endIf
 	else
 		MCM.AddHeaderOption("<font color='#ff7417'>$gpp_mcm_com_lbl_actionRequired</font>")
@@ -270,8 +270,8 @@ State action_A1_single
             else
                 KH.aiNonComboActions[1] = -1
                 sA1SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -304,8 +304,8 @@ State action_A1_double
             else
                 KH.aiNonComboActions[2] = -1
                 sA1DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -338,8 +338,8 @@ State action_A1_triple
             else
                 KH.aiNonComboActions[3] = -1
                 sA1TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -372,8 +372,8 @@ State action_A1_hold
             else
                 KH.aiNonComboActions[0] = -1
                 sA1HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -410,8 +410,8 @@ State action_A2_single
             else
                 KH.aiNonComboActions[5] = -1
                 sA2SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -444,8 +444,8 @@ State action_A2_double
             else
                 KH.aiNonComboActions[6] = -1
                 sA2DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -478,8 +478,8 @@ State action_A2_triple
             else
                 KH.aiNonComboActions[7] = -1
                 sA2TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -512,8 +512,8 @@ State action_A2_hold
             else
                 KH.aiNonComboActions[4] = -1
                 sA2HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -550,8 +550,8 @@ State action_A3_single
             else
                 KH.aiNonComboActions[9] = -1
                 sA3SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -584,8 +584,8 @@ State action_A3_double
             else
                 KH.aiNonComboActions[10] = -1
                 sA3DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -618,8 +618,8 @@ State action_A3_triple
             else
                 KH.aiNonComboActions[11] = -1
                 sA3TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -652,8 +652,8 @@ State action_A3_hold
             else
                 KH.aiNonComboActions[8] = -1
                 sA3HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -690,8 +690,8 @@ State action_A4_single
             else
                 KH.aiNonComboActions[13] = -1
                 sA4SnglLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -724,8 +724,8 @@ State action_A4_double
             else
                 KH.aiNonComboActions[14] = -1
                 sA4DblLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -758,8 +758,8 @@ State action_A4_triple
             else
                 KH.aiNonComboActions[15] = -1
                 sA4TrplLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState
@@ -792,8 +792,8 @@ State action_A4_hold
             else
                 KH.aiNonComboActions[12] = -1
                 sA4HldLabel = ""
-                MCM.forcePageReset()
             endIf
+            MCM.forcePageReset()
         endIf
     endEvent
 endState

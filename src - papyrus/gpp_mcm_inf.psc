@@ -33,9 +33,7 @@ function drawPage()
 	MCM.AddEmptyOption()
 	MCM.AddInputOptionST("inf_inp_savepreset", "$gpp_mcm_inf_lbl_savepreset", "")
 	if jMap.count(jObj) > 0
-		MCM.AddEmptyOption()
 		MCM.AddMenuOptionST("inf_men_loadpreset", "$gpp_mcm_inf_lbl_loadpreset", "")
-		MCM.AddEmptyOption()
 		MCM.AddMenuOptionST("inf_men_deletepreset", "$gpp_mcm_inf_lbl_deletepreset", "")
 	endIf
 	jValue.zeroLifetime(jObj)
