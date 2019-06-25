@@ -126,9 +126,9 @@ event OnPageReset(string page)
     sCurrentPage = page
     
     if page == ""
-        LoadCustomContent("GPP/GPP_Splash.dds", 70, 55)
+        LoadCustomContent("GPP/gpp_splash.swf", 236, 123)
     elseIf page == "$gpp_mcm_lbl_ctrls"
-        LoadCustomContent("GPP/GPP_Controls.dds", 28, 22)
+        LoadCustomContent("GPP/gpp_controls.swf", 16, 23)
     else
         UnloadCustomContent()
     
