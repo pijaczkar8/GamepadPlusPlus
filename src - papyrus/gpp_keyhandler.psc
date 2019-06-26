@@ -246,19 +246,19 @@ event OnKeyDown(int KeyCode)
 	if KeyCode == GPP_KEYCODE_C1
 		bIsC1Held = true
 		bIsComboKey = true
-		debug.notification("Gamepad++ Combo Key 1 down")
+		;debug.notification("Gamepad++ Combo Key 1 down")
 	elseIf KeyCode == GPP_KEYCODE_C2
 		bIsC2Held = true
 		bIsComboKey = true
-		debug.notification("Gamepad++ Combo Key 2 down")
+		;debug.notification("Gamepad++ Combo Key 2 down")
 	elseIf KeyCode == GPP_KEYCODE_C3
 		bIsC3Held = true
 		bIsComboKey = true
-		debug.notification("Gamepad++ Combo Key 3 down")
+		;debug.notification("Gamepad++ Combo Key 3 down")
 	elseIf KeyCode == GPP_KEYCODE_C4
 		bIsC4Held = true
 		bIsComboKey = true
-		debug.notification("Gamepad++ Combo Key 4 down")
+		;debug.notification("Gamepad++ Combo Key 4 down")
 	endif
 
     if bAllowKeyPress
@@ -289,16 +289,16 @@ event OnKeyUp(int KeyCode, Float HoldTime)
     
     if KeyCode == GPP_KEYCODE_C1
 		bIsC1Held = false
-		debug.notification("Gamepad++ Combo Key 1 released")
+		;debug.notification("Gamepad++ Combo Key 1 released")
 	elseIf KeyCode == GPP_KEYCODE_C2
 		bIsC2Held = false
-		debug.notification("Gamepad++ Combo Key 2 released")
+		;debug.notification("Gamepad++ Combo Key 2 released")
 	elseIf KeyCode == GPP_KEYCODE_C3
 		bIsC3Held = false
-		debug.notification("Gamepad++ Combo Key 3 released")
+		;debug.notification("Gamepad++ Combo Key 3 released")
 	elseIf KeyCode == GPP_KEYCODE_C4
 		bIsC4Held = false
-		debug.notification("Gamepad++ Combo Key 4 released")
+		;debug.notification("Gamepad++ Combo Key 4 released")
 	endif
 
     if bAllowKeyPress && KeyCode == iWaitingKeyCode && iMultiTap == 0

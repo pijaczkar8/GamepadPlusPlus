@@ -126,13 +126,13 @@ event OnPageReset(string page)
     sCurrentPage = page
     
     if page == ""
-        LoadCustomContent("GPP/gpp_splash.swf", 236, 123)
-    elseIf page == "$gpp_mcm_lbl_ctrls"
-        LoadCustomContent("GPP/gpp_controls.swf", 16, 23)
+        LoadCustomContent("GPP/gpp_splash.swf", 196, 98)
     else
         UnloadCustomContent()
     
-		if page == "$gpp_mcm_lbl_gen"
+		if page == "$gpp_mcm_lbl_ctrls"
+			LoadCustomContent("GPP/gpp_controls.swf", 76, 63)
+		elseIf page == "$gpp_mcm_lbl_gen"
 			gen.drawPage()
 		elseIf page == "$gpp_mcm_lbl_act" 
 			act.drawPage()
