@@ -165,6 +165,8 @@ Function RegisterKeys()
 	if bFourthComboEnabled
 		RegisterForKey(GPP_KEYCODE_C4)
 	endif
+
+	SendModEvent("GPP_ComboKeysUpdated")
 EndFunction
 
 event OniEquipKeysUpdated(string sEventName, string sStringArg, Float fNumArg, Form kSender)

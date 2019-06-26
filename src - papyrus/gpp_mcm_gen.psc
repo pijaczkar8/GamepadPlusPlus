@@ -190,7 +190,6 @@ State key_C1
             endIf
             MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C1)
             MCM.bUpdateKeys = true
-            SendModEvent("GPP_ComboKeysUpdated") 
         endIf
     endEvent
 endState
@@ -207,7 +206,6 @@ State key_C2
             endIf
             MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C2)
             MCM.bUpdateKeys = true
-            SendModEvent("GPP_ComboKeysUpdated")    
         endIf
     endEvent
 endState
@@ -224,7 +222,6 @@ State key_C3
             endIf
             MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C3)
             MCM.bUpdateKeys = true
-            SendModEvent("GPP_ComboKeysUpdated")
         endIf
     endEvent
 endState
@@ -241,7 +238,6 @@ State key_C4
             endIf
             MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C4)
             MCM.bUpdateKeys = true
-            SendModEvent("GPP_ComboKeysUpdated")
         endIf
     endEvent
 endState

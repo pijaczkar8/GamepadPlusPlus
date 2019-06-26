@@ -293,7 +293,6 @@ function loadPreset(string presetName, bool bNoExt = false)	; Load MCM data
             ComboFour.loadData(jMap.getObj(jMCMPreset, "Combo4"))
 
             KH.RegisterKeys()
-            SendModEvent("GPP_ComboKeysUpdated")
 			
 			bBusy = false
 		endIf
