@@ -49,10 +49,10 @@
 //							
 // Main Gameplay
 //
-// All keyboard and mouse bindings except hotkeys (1-8 on main keyboard only, not number pad) and console
-// removed to allow any key to be assigned without conflict as mod hotkeys in MCM if required.
-// Also removes any conflict when typing in console with controller enabled, and allows mouse to be used to
-// adjust ENB settings with controller enabled without moving camera or swinging weapons.
+//All keyboard and mouse bindings except hotkeys (1-8 on main keyboard only, not number pad) and console
+//removed to allow any key to be assigned without conflict as mod hotkeys in MCM if required.
+//Also removes any conflict when typing in console with controller enabled, and allows mouse to be used to
+//adjust ENB settings with controller enabled without moving camera or swinging weapons.
 //
 //	MAIN GAMEPLAY UNCHANGED
 //
@@ -111,8 +111,8 @@ Activate			0xff				0xff	0x1000						0	0	1
 Ready Weapon		0x13				0xff	0x4000						0	0	1	
 Tween Menu			0x0f				0xff	0x2000+0x8000				1	1	1	
 Toggle POV			0xff				0xff	0x0200+0x0080				1	1	1	
-Zoom Out			0xff				0xff	0x2000+0x0009				0	0	0	0x220
-Zoom In				0xff				0xff	0x2000+0x000a				0	0	0	0x220
+Zoom Out			0xff				0xff	0xff						0	0	0	0x220
+Zoom In				0xff				0xff	0xff						0	0	0	0x220
 Jump				0xff				0xff	0x8000						1	1	1	
 Sprint				0xff				0xff	0x0100						1	1	1	
 Shout				0xff				0xff	0x0040						1	1	1	
@@ -138,7 +138,7 @@ Screenshot			0xff				0xff	0x2000+0x0100				0	0	0
 Multi-Screenshot	0xff				0xff	0xff						0	0	0
 Console				0x29,0x94			0xff	0x2000+0x0020				0	0	0	
 CameraPath			0xff				0xff	0xff						0	0	0
-Quick Inventory		0xff				0xff	0x0200+0x0040				1	1	0	
+Quick Inventory		0xff				0xff	0x0200+0x2000				1	1	0	
 Quick Magic			0xff				0xff	0x0200+0x4000				1	1	0	
 Quick Stats			0xff				0xff	0x0200+0x8000				1	1	0	
 Quick Map			0xff				0xff	0x0200+0x1000				1	1	0	
@@ -149,10 +149,10 @@ Quick Map			0xff				0xff	0x0200+0x1000				1	1	0
 //						
 Accept				0xff				0xff	0x1000						0	0	0	
 Cancel				0x0f,0x1			0xff	0x2000						0	0	0	0x8
-Up					0xff				0xff	0x0001						0	0	0	
-Down				0xff				0xff	0x0002						0	0	0	
-Left				0xff				0xff	0x0004						0	0	0	
-Right				0xff				0xff	0x0008						0	0	0	
+Up					0xff				0xff	0xff						0	0	0	
+Down				0xff				0xff	0xff						0	0	0	
+Left				0xff				0xff	0xff						0	0	0	
+Right				0xff				0xff	0xff						0	0	0	
 Left Stick			0xff				0xff	0x000b						0	0	0	
 Console				0x29				0xff	0x2000+0x0020				0	0	0	
 
