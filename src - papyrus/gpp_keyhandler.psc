@@ -2,6 +2,7 @@ Scriptname gpp_keyhandler extends ReferenceAlias
 
 import Input
 import Game
+import Utility
 
 ; Action Keys
 int property GPP_KEYCODE_A1 = 268 auto hidden 		; Default: DPad Left
@@ -222,7 +223,10 @@ event OnUpdate()
 		    endIf
 
 		    if keyToTap > 0
-		    	TapKey(keyToTap)
+		    	;TapKey(keyToTap)
+		    	HoldKey(keyToTap)
+		    	WaitMenuMode(0.1)
+		    	ReleaseKey(keyToTap)
 		    endIf
 
 		endIf
