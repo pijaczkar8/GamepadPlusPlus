@@ -49,7 +49,7 @@ bool property bExtControlsEnabled auto hidden
 bool bNotInLootMenu = true
 
 ; Ints
-int iWaitingKeyCode
+int iWaitingKeyCode = -1
 int iMultiTap
 
 ; Strings
@@ -113,7 +113,7 @@ event OnPlayerLoadGame()
     bIsC2Held = false
     bIsC3Held = false
     bIsC4Held = false
-    iWaitingKeyCode = 0
+    iWaitingKeyCode = -1
     iMultiTap = 0
     bAllowKeyPress = true
 
@@ -234,7 +234,7 @@ event OnUpdate()
 	endIf
     
     iMultiTap = 0
-    iWaitingKeyCode = 0
+    iWaitingKeyCode = -1
     bAllowKeyPress = true
 endEvent
 
@@ -316,7 +316,7 @@ state DISABLED
     event OnBeginState()
         UnregisterForUpdate()
         bAllowKeyPress = false
-        iWaitingKeyCode = 0
+        iWaitingKeyCode = -1
         iMultiTap = 0
     endEvent
     
