@@ -2,71 +2,54 @@ Scriptname gpp_mcm_combo_one extends gpp_mcm_page
 
 int mcmUnmapFLAG
 
-string sC1A1SnglLabel
-string sC1A1DblLabel
-string sC1A1TrplLabel
-string sC1A1HldLabel
-
-string sC1A2SnglLabel
-string sC1A2DblLabel
-string sC1A2TrplLabel
-string sC1A2HldLabel
-
-string sC1A3SnglLabel
-string sC1A3DblLabel
-string sC1A3TrplLabel
-string sC1A3HldLabel
-
-string sC1A4SnglLabel
-string sC1A4DblLabel
-string sC1A4TrplLabel
-string sC1A4HldLabel
+string[] asDescriptions
 
 ; #############
 ; ### SETUP ###
 
 function initData()                  ; Initialize page specific data
     mcmUnmapFLAG = MCM.OPTION_FLAG_WITH_UNMAP
+    asDescriptions = new string[16]
 endFunction
 
 int function saveData()             ; sC1Ave page data and return jObject
     int jPageObj = jArray.object()
 
     jArray.addInt(jPageObj, KH.aiC1Actions[1])
-    jArray.addStr(jPageObj, sC1A1SnglLabel)
+    jArray.addStr(jPageObj, asDescriptions[1])
     jArray.addInt(jPageObj, KH.aiC1Actions[2])
-    jArray.addStr(jPageObj, sC1A1DblLabel)
+    jArray.addStr(jPageObj, asDescriptions[2])
     jArray.addInt(jPageObj, KH.aiC1Actions[3])
-    jArray.addStr(jPageObj, sC1A1TrplLabel)
+    jArray.addStr(jPageObj, asDescriptions[3])
     jArray.addInt(jPageObj, KH.aiC1Actions[0])
-    jArray.addStr(jPageObj, sC1A1HldLabel)
+    jArray.addStr(jPageObj, asDescriptions[0])
 
     jArray.addInt(jPageObj, KH.aiC1Actions[5])
-    jArray.addStr(jPageObj, sC1A2SnglLabel)
+    jArray.addStr(jPageObj, asDescriptions[5])
     jArray.addInt(jPageObj, KH.aiC1Actions[6])
-    jArray.addStr(jPageObj, sC1A2DblLabel)
+    jArray.addStr(jPageObj, asDescriptions[6])
     jArray.addInt(jPageObj, KH.aiC1Actions[7])
-    jArray.addStr(jPageObj, sC1A2TrplLabel)
+    jArray.addStr(jPageObj, asDescriptions[7])
     jArray.addInt(jPageObj, KH.aiC1Actions[4])
-    jArray.addStr(jPageObj, sC1A2HldLabel)
+    jArray.addStr(jPageObj, asDescriptions[4])
 
     jArray.addInt(jPageObj, KH.aiC1Actions[9])
-    jArray.addStr(jPageObj, sC1A3SnglLabel)
+    jArray.addStr(jPageObj, asDescriptions[9])
     jArray.addInt(jPageObj, KH.aiC1Actions[10])
-    jArray.addStr(jPageObj, sC1A3DblLabel)
+    jArray.addStr(jPageObj, asDescriptions[10])
     jArray.addInt(jPageObj, KH.aiC1Actions[11])
-    jArray.addStr(jPageObj, sC1A3TrplLabel)
+    jArray.addStr(jPageObj, asDescriptions[11])
     jArray.addInt(jPageObj, KH.aiC1Actions[8])
-    jArray.addStr(jPageObj, sC1A3HldLabel)
+    jArray.addStr(jPageObj, asDescriptions[8])
 
     jArray.addInt(jPageObj, KH.aiC1Actions[13])
-    jArray.addStr(jPageObj, sC1A4SnglLabel)
+    jArray.addStr(jPageObj, asDescriptions[13])
     jArray.addInt(jPageObj, KH.aiC1Actions[14])
-    jArray.addStr(jPageObj, sC1A4DblLabel)
+    jArray.addStr(jPageObj, asDescriptions[14])
     jArray.addInt(jPageObj, KH.aiC1Actions[15])
-    jArray.addStr(jPageObj, sC1A4TrplLabel)
+    jArray.addStr(jPageObj, asDescriptions[15])
     jArray.addInt(jPageObj, KH.aiC1Actions[12])
-    jArray.addStr(jPageObj, sC1A4HldLabel)
+    jArray.addStr(jPageObj, asDescriptions[12])
 
     return jPageObj    
 endFunction
@@ -74,44 +57,52 @@ endFunction
 function loadData(int jPageObj)     ; Load page data from jPageObj
 
     KH.aiC1Actions[1] = jArray.getInt(jPageObj, 0)
-    sC1A1SnglLabel = jArray.getStr(jPageObj, 1)
+    asDescriptions[1] = jArray.getStr(jPageObj, 1)
     KH.aiC1Actions[2] = jArray.getInt(jPageObj, 2)
-    sC1A1DblLabel = jArray.getStr(jPageObj, 3)
+    asDescriptions[2] = jArray.getStr(jPageObj, 3)
     KH.aiC1Actions[3] = jArray.getInt(jPageObj, 4)
-    sC1A1TrplLabel = jArray.getStr(jPageObj, 5)
+    asDescriptions[3] = jArray.getStr(jPageObj, 5)
     KH.aiC1Actions[0] = jArray.getInt(jPageObj, 6)
-    sC1A1HldLabel = jArray.getStr(jPageObj, 7)
+    asDescriptions[0] = jArray.getStr(jPageObj, 7)
 
     KH.aiC1Actions[5] = jArray.getInt(jPageObj, 8)
-    sC1A2SnglLabel = jArray.getStr(jPageObj, 9)
+    asDescriptions[5] = jArray.getStr(jPageObj, 9)
     KH.aiC1Actions[6] = jArray.getInt(jPageObj, 10)
-    sC1A2DblLabel = jArray.getStr(jPageObj, 11)
+    asDescriptions[6] = jArray.getStr(jPageObj, 11)
     KH.aiC1Actions[7] = jArray.getInt(jPageObj, 12)
-    sC1A2TrplLabel = jArray.getStr(jPageObj, 13)
+    asDescriptions[7] = jArray.getStr(jPageObj, 13)
     KH.aiC1Actions[4] = jArray.getInt(jPageObj, 14)
-    sC1A2HldLabel = jArray.getStr(jPageObj, 15)
+    asDescriptions[4] = jArray.getStr(jPageObj, 15)
 
     KH.aiC1Actions[9] = jArray.getInt(jPageObj, 16)
-    sC1A3SnglLabel = jArray.getStr(jPageObj, 17)
+    asDescriptions[9] = jArray.getStr(jPageObj, 17)
     KH.aiC1Actions[10] = jArray.getInt(jPageObj, 18)
-    sC1A3DblLabel = jArray.getStr(jPageObj, 19)
+    asDescriptions[10] = jArray.getStr(jPageObj, 19)
     KH.aiC1Actions[11] = jArray.getInt(jPageObj, 20)
-    sC1A3TrplLabel = jArray.getStr(jPageObj, 21)
+    asDescriptions[11] = jArray.getStr(jPageObj, 21)
     KH.aiC1Actions[8] = jArray.getInt(jPageObj, 22)
-    sC1A3HldLabel = jArray.getStr(jPageObj, 23)
+    asDescriptions[8] = jArray.getStr(jPageObj, 23)
 
     KH.aiC1Actions[13] = jArray.getInt(jPageObj, 24)
-    sC1A4SnglLabel = jArray.getStr(jPageObj, 25)
+    asDescriptions[13] = jArray.getStr(jPageObj, 25)
     KH.aiC1Actions[14] = jArray.getInt(jPageObj, 26)
-    sC1A4DblLabel = jArray.getStr(jPageObj, 27)
+    asDescriptions[14] = jArray.getStr(jPageObj, 27)
     KH.aiC1Actions[15] = jArray.getInt(jPageObj, 28)
-    sC1A4TrplLabel = jArray.getStr(jPageObj, 29)
+    asDescriptions[15] = jArray.getStr(jPageObj, 29)
     KH.aiC1Actions[12] = jArray.getInt(jPageObj, 30)
-    sC1A4HldLabel = jArray.getStr(jPageObj, 31)
+    asDescriptions[12] = jArray.getStr(jPageObj, 31)
 
 endFunction
 
 function drawPage()
+
+    int i
+    while i < 16
+        if KH.aiC1Actions[i] == -1
+            asDescriptions[i] = ""
+        endIf
+        i += 1
+    endWhile
 
     int keyCode = KH.GPP_KEYCODE_C1
 	
@@ -124,20 +115,20 @@ function drawPage()
 		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A1)] + "}")
 		    MCM.AddKeyMapOptionST("action_C1_A1_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC1Actions[1], mcmUnmapFLAG)
 		    if KH.aiC1Actions[1] > 0
-		    	MCM.AddInputOptionST("label_C1_A1_sngl", "$gpp_mcm_com_lbl_addLabel", sC1A1SnglLabel)
+		    	MCM.AddInputOptionST("label_C1_A1_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[1])
 		    endIf
 		    if KH.bExtControlsEnabled
 			    MCM.AddKeyMapOptionST("action_C1_A1_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC1Actions[2], mcmUnmapFLAG)
 			    if KH.aiC1Actions[2] > 0
-			    	MCM.AddInputOptionST("label_C1_A1_dbl", "$gpp_mcm_com_lbl_addLabel", sC1A1DblLabel)
+			    	MCM.AddInputOptionST("label_C1_A1_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[2])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A1_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC1Actions[3], mcmUnmapFLAG)
 			    if KH.aiC1Actions[3] > 0
-			    	MCM.AddInputOptionST("label_C1_A1_trpl", "$gpp_mcm_com_lbl_addLabel", sC1A1TrplLabel)
+			    	MCM.AddInputOptionST("label_C1_A1_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[3])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A1_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC1Actions[0], mcmUnmapFLAG)
 			    if KH.aiC1Actions[0] > 0
-			    	MCM.AddInputOptionST("label_C1_A1_hld", "$gpp_mcm_com_lbl_addLabel", sC1A1HldLabel)
+			    	MCM.AddInputOptionST("label_C1_A1_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[0])
 			    endIf
 			endIf
 
@@ -146,20 +137,20 @@ function drawPage()
 		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A2)] + "}")
 		    MCM.AddKeyMapOptionST("action_C1_A2_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC1Actions[5], mcmUnmapFLAG)
 		    if KH.aiC1Actions[5] > 0
-		    	MCM.AddInputOptionST("label_C1_A2_sngl", "$gpp_mcm_com_lbl_addLabel", sC1A2SnglLabel)
+		    	MCM.AddInputOptionST("label_C1_A2_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[5])
 		    endIf
 		    if KH.bExtControlsEnabled
 			    MCM.AddKeyMapOptionST("action_C1_A2_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC1Actions[6], mcmUnmapFLAG)
 			    if KH.aiC1Actions[6] > 0
-			    	MCM.AddInputOptionST("label_C1_A2_dbl", "$gpp_mcm_com_lbl_addLabel", sC1A2DblLabel)
+			    	MCM.AddInputOptionST("label_C1_A2_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[6])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A2_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC1Actions[7], mcmUnmapFLAG)
 			    if KH.aiC1Actions[7] > 0
-			    	MCM.AddInputOptionST("label_C1_A2_trpl", "$gpp_mcm_com_lbl_addLabel", sC1A2TrplLabel)
+			    	MCM.AddInputOptionST("label_C1_A2_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[7])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A2_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC1Actions[4], mcmUnmapFLAG)
 			    if KH.aiC1Actions[4] > 0
-			    	MCM.AddInputOptionST("label_C1_A2_hld", "$gpp_mcm_com_lbl_addLabel", sC1A2HldLabel)
+			    	MCM.AddInputOptionST("label_C1_A2_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[4])
 			    endIf
 			endIf
 
@@ -168,20 +159,20 @@ function drawPage()
 		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A3)] + "}")
 		    MCM.AddKeyMapOptionST("action_C1_A3_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC1Actions[9], mcmUnmapFLAG)
 		    if KH.aiC1Actions[9] > 0
-		    	MCM.AddInputOptionST("label_C1_A3_sngl", "$gpp_mcm_com_lbl_addLabel", sC1A3SnglLabel)
+		    	MCM.AddInputOptionST("label_C1_A3_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[9])
 		    endIf
 		    if KH.bExtControlsEnabled
 			    MCM.AddKeyMapOptionST("action_C1_A3_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC1Actions[10], mcmUnmapFLAG)
 			    if KH.aiC1Actions[10] > 0
-			    	MCM.AddInputOptionST("label_C1_A3_dbl", "$gpp_mcm_com_lbl_addLabel", sC1A3DblLabel)
+			    	MCM.AddInputOptionST("label_C1_A3_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[10])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A3_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC1Actions[11], mcmUnmapFLAG)
 			    if KH.aiC1Actions[11] > 0
-			    	MCM.AddInputOptionST("label_C1_A3_trpl", "$gpp_mcm_com_lbl_addLabel", sC1A3TrplLabel)
+			    	MCM.AddInputOptionST("label_C1_A3_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[11])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A3_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC1Actions[8], mcmUnmapFLAG)
 			    if KH.aiC1Actions[8] > 0
-			    	MCM.AddInputOptionST("label_C1_A3_hld", "$gpp_mcm_com_lbl_addLabel", sC1A3HldLabel)
+			    	MCM.AddInputOptionST("label_C1_A3_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[8])
 			    endIf
 			endIf
 
@@ -190,20 +181,20 @@ function drawPage()
 		    MCM.AddHeaderOption("$gpp_mcm_com_lbl_comboActions{" + keyName + "}{" + MCM.asKeyNames[MCM.aiKeyCodes.Find(KH.GPP_KEYCODE_A4)] + "}")
 		    MCM.AddKeyMapOptionST("action_C1_A4_single", "$gpp_mcm_com_lbl_combosingle", KH.aiC1Actions[13], mcmUnmapFLAG)
 		    if KH.aiC1Actions[13] > 0
-		    	MCM.AddInputOptionST("label_C1_A4_sngl", "$gpp_mcm_com_lbl_addLabel", sC1A4SnglLabel)
+		    	MCM.AddInputOptionST("label_C1_A4_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[13])
 		    endIf
 		    if KH.bExtControlsEnabled
 			    MCM.AddKeyMapOptionST("action_C1_A4_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC1Actions[14], mcmUnmapFLAG)
 			    if KH.aiC1Actions[14] > 0
-			    	MCM.AddInputOptionST("label_C1_A4_dbl", "$gpp_mcm_com_lbl_addLabel", sC1A4DblLabel)
+			    	MCM.AddInputOptionST("label_C1_A4_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[14])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A4_triple", "$gpp_mcm_com_lbl_combotriple", KH.aiC1Actions[15], mcmUnmapFLAG)
 			    if KH.aiC1Actions[15] > 0
-			    	MCM.AddInputOptionST("label_C1_A4_trpl", "$gpp_mcm_com_lbl_addLabel", sC1A4TrplLabel)
+			    	MCM.AddInputOptionST("label_C1_A4_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[15])
 			    endIf
 			    MCM.AddKeyMapOptionST("action_C1_A4_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC1Actions[12], mcmUnmapFLAG)
 			    if KH.aiC1Actions[12] > 0
-			    	MCM.AddInputOptionST("label_C1_A4_hld", "$gpp_mcm_com_lbl_addLabel", sC1A4HldLabel)
+			    	MCM.AddInputOptionST("label_C1_A4_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[12])
 			    endIf
 			endIf
 
@@ -234,7 +225,7 @@ State action_C1_A1_single
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[1])
             else
                 KH.aiC1Actions[1] = -1
-                sC1A1SnglLabel = ""
+                asDescriptions[1] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -246,14 +237,14 @@ state label_C1_A1_sngl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A1SnglLabel)
+            MCM.SetInputDialogStartText(asDescriptions[1])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A1SnglLabel = currentStrVar
+                asDescriptions[1] = currentStrVar
             else
-                sC1A1SnglLabel = ""
+                asDescriptions[1] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A1SnglLabel)
+            MCM.SetInputOptionValueST(asDescriptions[1])
         endIf
     endEvent
 endState
@@ -268,7 +259,7 @@ State action_C1_A1_double
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[2])
             else
                 KH.aiC1Actions[2] = -1
-                sC1A1DblLabel = ""
+                asDescriptions[2] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -280,14 +271,14 @@ state label_C1_A1_dbl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A1DblLabel)
+            MCM.SetInputDialogStartText(asDescriptions[2])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A1DblLabel = currentStrVar
+                asDescriptions[2] = currentStrVar
             else
-                sC1A1DblLabel = ""
+                asDescriptions[2] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A1DblLabel)
+            MCM.SetInputOptionValueST(asDescriptions[2])
         endIf
     endEvent
 endState
@@ -302,7 +293,7 @@ State action_C1_A1_triple
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[3])
             else
                 KH.aiC1Actions[3] = -1
-                sC1A1TrplLabel = ""
+                asDescriptions[3] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -314,14 +305,14 @@ state label_C1_A1_trpl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A1TrplLabel)
+            MCM.SetInputDialogStartText(asDescriptions[3])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A1TrplLabel = currentStrVar
+                asDescriptions[3] = currentStrVar
             else
-                sC1A1TrplLabel = ""
+                asDescriptions[3] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A1TrplLabel)
+            MCM.SetInputOptionValueST(asDescriptions[3])
         endIf
     endEvent
 endState
@@ -336,7 +327,7 @@ State action_C1_A1_hold
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[0])
             else
                 KH.aiC1Actions[0] = -1
-                sC1A1HldLabel = ""
+                asDescriptions[0] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -348,14 +339,14 @@ state label_C1_A1_hld
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A1HldLabel)
+            MCM.SetInputDialogStartText(asDescriptions[0])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A1HldLabel = currentStrVar
+                asDescriptions[0] = currentStrVar
             else
-                sC1A1HldLabel = ""
+                asDescriptions[0] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A1HldLabel)
+            MCM.SetInputOptionValueST(asDescriptions[0])
         endIf
     endEvent
 endState
@@ -374,7 +365,7 @@ State action_C1_A2_single
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[5])
             else
                 KH.aiC1Actions[5] = -1
-                sC1A2SnglLabel = ""
+                asDescriptions[5] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -386,14 +377,14 @@ state label_C1_A2_sngl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A2SnglLabel)
+            MCM.SetInputDialogStartText(asDescriptions[5])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A2SnglLabel = currentStrVar
+                asDescriptions[5] = currentStrVar
             else
-                sC1A2SnglLabel = ""
+                asDescriptions[5] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A2SnglLabel)
+            MCM.SetInputOptionValueST(asDescriptions[5])
         endIf
     endEvent
 endState
@@ -408,7 +399,7 @@ State action_C1_A2_double
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[6])
             else
                 KH.aiC1Actions[6] = -1
-                sC1A2DblLabel = ""
+                asDescriptions[6] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -420,14 +411,14 @@ state label_C1_A2_dbl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A2DblLabel)
+            MCM.SetInputDialogStartText(asDescriptions[6])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A2DblLabel = currentStrVar
+                asDescriptions[6] = currentStrVar
             else
-                sC1A2DblLabel = ""
+                asDescriptions[6] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A2DblLabel)
+            MCM.SetInputOptionValueST(asDescriptions[6])
         endIf
     endEvent
 endState
@@ -442,7 +433,7 @@ State action_C1_A2_triple
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[7])
             else
                 KH.aiC1Actions[7] = -1
-                sC1A2TrplLabel = ""
+                asDescriptions[7] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -454,14 +445,14 @@ state label_C1_A2_trpl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A2TrplLabel)
+            MCM.SetInputDialogStartText(asDescriptions[7])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A2TrplLabel = currentStrVar
+                asDescriptions[7] = currentStrVar
             else
-                sC1A2TrplLabel = ""
+                asDescriptions[7] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A2TrplLabel)
+            MCM.SetInputOptionValueST(asDescriptions[7])
         endIf
     endEvent
 endState
@@ -476,7 +467,7 @@ State action_C1_A2_hold
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[4])
             else
                 KH.aiC1Actions[4] = -1
-                sC1A2HldLabel = ""
+                asDescriptions[4] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -488,14 +479,14 @@ state label_C1_A2_hld
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A2HldLabel)
+            MCM.SetInputDialogStartText(asDescriptions[4])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A2HldLabel = currentStrVar
+                asDescriptions[4] = currentStrVar
             else
-                sC1A2HldLabel = ""
+                asDescriptions[4] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A2HldLabel)
+            MCM.SetInputOptionValueST(asDescriptions[4])
         endIf
     endEvent
 endState
@@ -514,7 +505,7 @@ State action_C1_A3_single
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[9])
             else
                 KH.aiC1Actions[9] = -1
-                sC1A3SnglLabel = ""
+                asDescriptions[9] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -526,14 +517,14 @@ state label_C1_A3_sngl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A3SnglLabel)
+            MCM.SetInputDialogStartText(asDescriptions[9])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A3SnglLabel = currentStrVar
+                asDescriptions[9] = currentStrVar
             else
-                sC1A3SnglLabel = ""
+                asDescriptions[9] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A3SnglLabel)
+            MCM.SetInputOptionValueST(asDescriptions[9])
         endIf
     endEvent
 endState
@@ -548,7 +539,7 @@ State action_C1_A3_double
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[10])
             else
                 KH.aiC1Actions[10] = -1
-                sC1A3DblLabel = ""
+                asDescriptions[10] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -560,14 +551,14 @@ state label_C1_A3_dbl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A3DblLabel)
+            MCM.SetInputDialogStartText(asDescriptions[10])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A3DblLabel = currentStrVar
+                asDescriptions[10] = currentStrVar
             else
-                sC1A3DblLabel = ""
+                asDescriptions[10] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A3DblLabel)
+            MCM.SetInputOptionValueST(asDescriptions[10])
         endIf
     endEvent
 endState
@@ -582,7 +573,7 @@ State action_C1_A3_triple
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[11])
             else
                 KH.aiC1Actions[11] = -1
-                sC1A3TrplLabel = ""
+                asDescriptions[11] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -594,14 +585,14 @@ state label_C1_A3_trpl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A3TrplLabel)
+            MCM.SetInputDialogStartText(asDescriptions[11])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A3TrplLabel = currentStrVar
+                asDescriptions[11] = currentStrVar
             else
-                sC1A3TrplLabel = ""
+                asDescriptions[11] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A3TrplLabel)
+            MCM.SetInputOptionValueST(asDescriptions[11])
         endIf
     endEvent
 endState
@@ -616,7 +607,7 @@ State action_C1_A3_hold
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[8])
             else
                 KH.aiC1Actions[8] = -1
-                sC1A3HldLabel = ""
+                asDescriptions[8] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -628,14 +619,14 @@ state label_C1_A3_hld
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A3HldLabel)
+            MCM.SetInputDialogStartText(asDescriptions[8])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A3HldLabel = currentStrVar
+                asDescriptions[8] = currentStrVar
             else
-                sC1A3HldLabel = ""
+                asDescriptions[8] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A3HldLabel)
+            MCM.SetInputOptionValueST(asDescriptions[8])
         endIf
     endEvent
 endState
@@ -654,7 +645,7 @@ State action_C1_A4_single
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[13])
             else
                 KH.aiC1Actions[13] = -1
-                sC1A4SnglLabel = ""
+                asDescriptions[13] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -666,14 +657,14 @@ state label_C1_A4_sngl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A4SnglLabel)
+            MCM.SetInputDialogStartText(asDescriptions[13])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A4SnglLabel = currentStrVar
+                asDescriptions[13] = currentStrVar
             else
-                sC1A4SnglLabel = ""
+                asDescriptions[13] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A4SnglLabel)
+            MCM.SetInputOptionValueST(asDescriptions[13])
         endIf
     endEvent
 endState
@@ -688,7 +679,7 @@ State action_C1_A4_double
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[14])
             else
                 KH.aiC1Actions[14] = -1
-                sC1A4DblLabel = ""
+                asDescriptions[14] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -700,14 +691,14 @@ state label_C1_A4_dbl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A4DblLabel)
+            MCM.SetInputDialogStartText(asDescriptions[14])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A4DblLabel = currentStrVar
+                asDescriptions[14] = currentStrVar
             else
-                sC1A4DblLabel = ""
+                asDescriptions[14] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A4DblLabel)
+            MCM.SetInputOptionValueST(asDescriptions[14])
         endIf
     endEvent
 endState
@@ -722,7 +713,7 @@ State action_C1_A4_triple
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[15])
             else
                 KH.aiC1Actions[15] = -1
-                sC1A4TrplLabel = ""
+                asDescriptions[15] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -734,14 +725,14 @@ state label_C1_A4_trpl
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A4TrplLabel)
+            MCM.SetInputDialogStartText(asDescriptions[15])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A4TrplLabel = currentStrVar
+                asDescriptions[15] = currentStrVar
             else
-                sC1A4TrplLabel = ""
+                asDescriptions[15] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A4TrplLabel)
+            MCM.SetInputOptionValueST(asDescriptions[15])
         endIf
     endEvent
 endState
@@ -756,7 +747,7 @@ State action_C1_A4_hold
                 MCM.SetKeyMapOptionValueST(KH.aiC1Actions[12])
             else
                 KH.aiC1Actions[12] = -1
-                sC1A4HldLabel = ""
+                asDescriptions[12] = ""
             endIf
             MCM.forcePageReset()
         endIf
@@ -768,14 +759,14 @@ state label_C1_A4_hld
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_com_txt_setLabel")
         elseIf currentEvent == "Open"
-            MCM.SetInputDialogStartText(sC1A4HldLabel)
+            MCM.SetInputDialogStartText(asDescriptions[12])
         elseIf currentEvent == "Accept" || "Default"
             if currentEvent == "Accept"
-                sC1A4HldLabel = currentStrVar
+                asDescriptions[12] = currentStrVar
             else
-                sC1A4HldLabel = ""
+                asDescriptions[12] = ""
             endIf
-            MCM.SetInputOptionValueST(sC1A4HldLabel)
+            MCM.SetInputOptionValueST(asDescriptions[12])
         endIf
     endEvent
 endState
