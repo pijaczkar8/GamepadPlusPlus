@@ -86,26 +86,7 @@ event OnPlayerLoadGame()
 	GotoState("")
     UnregisterForUpdate()
     
-    RegisterForMenu("InventoryMenu")
-    RegisterForMenu("MagicMenu")
-    RegisterForMenu("FavoritesMenu")
-    RegisterForMenu("ContainerMenu")
-    RegisterForMenu("BarterMenu")
-    RegisterForMenu("Crafting Menu")
-    RegisterForMenu("Dialogue Menu")
-    RegisterForMenu("LootMenu")
-    RegisterForMenu("CustomMenu")
-    RegisterForMenu("Journal Menu")
-    RegisterForMenu("Console")
-    RegisterForMenu("GiftMenu")
-    RegisterForMenu("Lockpicking Menu")
-    RegisterForMenu("MapMenu")
-    RegisterForMenu("RaceSex Menu")
-    RegisterForMenu("Sleep/Wait Menu")
-    RegisterForMenu("StatsMenu")
-    RegisterForMenu("Training Menu")
-    RegisterForMenu("TweenMenu")
-    RegisterForMenu("Quantity Menu")
+    RegisterForMenus()
 
     ; Reset
     bNotInLootMenu = true
@@ -169,6 +150,47 @@ Function RegisterKeys()
 
 	SendModEvent("GPP_ComboKeysUpdated")
 EndFunction
+
+function RegisterForMenus()
+    RegisterForMenu("BarterMenu")
+    RegisterForMenu("Book Menu")
+    RegisterForMenu("Console")
+    RegisterForMenu("Console Native UI Menu")
+    RegisterForMenu("ContainerMenu")
+    RegisterForMenu("Crafting Menu")
+    ;RegisterForMenu("Credits Menu")
+    ;RegisterForMenu("Cursor Menu")
+    RegisterForMenu("CustomMenu")
+    ;RegisterForMenu("Debug Text Menu")
+    RegisterForMenu("Dialogue Menu")
+    ;RegisterForMenu("Fader Menu")
+    RegisterForMenu("FavoritesMenu")
+    RegisterForMenu("GiftMenu")
+    ;RegisterForMenu("HUD Menu")
+    RegisterForMenu("InventoryMenu")
+    RegisterForMenu("Journal Menu")
+    ;RegisterForMenu("Kinect Menu")
+    RegisterForMenu("LevelUp Menu")
+    RegisterForMenu("Loading Menu")
+    RegisterForMenu("Lockpicking Menu")
+    RegisterForMenu("LootMenu")         ; QuickLoot
+    RegisterForMenu("MagicMenu")
+    RegisterForMenu("Main Menu")
+    RegisterForMenu("MapMenu")
+    RegisterForMenu("MessageBoxMenu")
+    ;RegisterForMenu("Mist Menu")
+    ;RegisterForMenu("Overlay Interaction Menu")
+    ;RegisterForMenu("Overlay Menu")
+    RegisterForMenu("Quantity Menu")
+    RegisterForMenu("RaceSex Menu")
+    RegisterForMenu("Sleep/Wait Menu")
+    RegisterForMenu("StatsMenu")
+    ;RegisterForMenu("TitleSequence Menu")
+    ;RegisterForMenu("Top Menu")
+    RegisterForMenu("Training Menu")
+    RegisterForMenu("Tutorial Menu")
+    RegisterForMenu("TweenMenu")
+endfunction
 
 event OniEquipKeysUpdated(string sEventName, string sStringArg, Float fNumArg, Form kSender)
 	aiiEquipKeys[0] = (GetFormFromFile(0x00113B9F, "iEquip.esp") as globalvariable).GetValueInt()	; iEquipLeftKey
@@ -321,6 +343,10 @@ state DISABLED
     endEvent
     
     event OnEndState()
+    	bIsC1Held = false
+    	bIsC2Held = false
+    	bIsC3Held = false
+    	bIsC4Held = false
         bAllowKeyPress = true
     endEvent
 endState
