@@ -102,7 +102,7 @@ State inf_txt_reset
         if currentEvent == "Highlight"
             MCM.SetInfoText("$gpp_mcm_inf_txt_reset")
         elseIf currentEvent == "Select" && MCM.ShowMessage("$gpp_mcm_inf_msg_reset", true, "$gpp_mcm_inf_btn_reset", "$gpp_mcm_inf_btn_cancel")
-        	MCM.loadPreset("gpp_default_doNotDelete", true)
+        	MCM.loadPreset("gpp_default_doNotDelete.gppd", true)
         endIf
     endEvent    
 endState

@@ -210,6 +210,11 @@ event OnMenuOpen(string MenuName)
 endEvent
 
 event OnMenuClose(string MenuName)
+	if menuName == "MessageBoxMenu"
+    	Utility.WaitMenuMode(0.5)
+    	sPreviousState = GetState()
+    endIf
+
     if MenuName == "LootMenu"
         bNotInLootMenu = true
     else 

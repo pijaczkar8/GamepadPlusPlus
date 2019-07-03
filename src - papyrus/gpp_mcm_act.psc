@@ -176,7 +176,7 @@ function drawPage()
 
     MCM.SetCursorPosition(1)
 
-    keyCode = KH.GPP_KEYCODE_A2
+    keyCode = KH.GPP_KEYCODE_A3
 	if keyCode > 0
 	    tmpStr = MCM.asKeyNames[MCM.aiKeyCodes.Find(keyCode)]
 	    MCM.AddHeaderOption("$gpp_mcm_act_lbl_keyActions{" + tmpStr + "}")
