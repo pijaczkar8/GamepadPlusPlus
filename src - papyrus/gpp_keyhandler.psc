@@ -52,9 +52,6 @@ bool bNotInLootMenu = true
 int iWaitingKeyCode = -1
 int iMultiTap
 
-; Strings
-string sPreviousState
-
 ; iEquip Support
 bool property biEquipLoaded auto hidden
 int[] property aiiEquipKeys auto hidden
@@ -204,7 +201,6 @@ event OnMenuOpen(string MenuName)
     if MenuName == "LootMenu"
         bNotInLootMenu = false
     else
-        sPreviousState = GetState()
         GoToState("DISABLED")
     endIf
 endEvent
@@ -212,14 +208,11 @@ endEvent
 event OnMenuClose(string MenuName)
 	if menuName == "MessageBoxMenu"
     	Utility.WaitMenuMode(0.5)
-    	sPreviousState = GetState()
-    endIf
-
-    if MenuName == "LootMenu"
+	elseIf MenuName == "LootMenu"
         bNotInLootMenu = true
-    else 
-        GotoState(sPreviousState)
-    endIf
+	endIf
+	
+	GotoState("")
 endEvent
 
 event OnUpdate()
