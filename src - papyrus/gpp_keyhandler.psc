@@ -3,6 +3,7 @@ Scriptname gpp_keyhandler extends ReferenceAlias
 import Input
 import Game
 import Utility
+import UI
 
 ; Action Keys
 int property GPP_KEYCODE_A1 = 268 auto hidden 		; Default: DPad Left
@@ -46,14 +47,10 @@ float property fLongPressDelay = 0.6 auto hidden
 bool property bAllowKeyPress = true auto hidden
 bool property bFourthComboEnabled auto hidden
 bool property bExtControlsEnabled auto hidden
-bool bNotInLootMenu = true
 
 ; Ints
 int iWaitingKeyCode = -1
 int iMultiTap
-
-; Strings
-string sPreviousState
 
 ; iEquip Support
 bool property biEquipLoaded auto hidden
@@ -89,7 +86,6 @@ event OnPlayerLoadGame()
     RegisterForMenus()
 
     ; Reset
-    bNotInLootMenu = true
     bIsC1Held = false
     bIsC2Held = false
     bIsC3Held = false
@@ -173,7 +169,6 @@ function RegisterForMenus()
     RegisterForMenu("LevelUp Menu")
     RegisterForMenu("Loading Menu")
     RegisterForMenu("Lockpicking Menu")
-    RegisterForMenu("LootMenu")         ; QuickLoot
     RegisterForMenu("MagicMenu")
     RegisterForMenu("Main Menu")
     RegisterForMenu("MapMenu")
@@ -201,31 +196,19 @@ event OniEquipKeysUpdated(string sEventName, string sStringArg, Float fNumArg, F
 endEvent
 
 event OnMenuOpen(string MenuName)
-    if MenuName == "LootMenu"
-        bNotInLootMenu = false
-    else
-        sPreviousState = GetState()
-        GoToState("DISABLED")
-    endIf
+    GoToState("DISABLED")
 endEvent
 
 event OnMenuClose(string MenuName)
-	if menuName == "MessageBoxMenu"
-    	Utility.WaitMenuMode(0.5)
-    	sPreviousState = GetState()
-    endIf
-
-    if MenuName == "LootMenu"
-        bNotInLootMenu = true
-    else 
-        GotoState(sPreviousState)
+    if !utility.IsInMenuMode()
+        GotoState("")
     endIf
 endEvent
 
 event OnUpdate()
     bAllowKeyPress = false
     
-	if iMultiTap == 1 || bExtControlsEnabled && (bNotInLootMenu || (iWaitingKeyCode != 266 || iWaitingKeyCode != 267))		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
+	if iMultiTap == 1 || bExtControlsEnabled && !((iWaitingKeyCode == 266 || iWaitingKeyCode == 267) && IsMenuOpen("Loot Menu") && UI.GetBool("Loot Menu", "_root.Menu_mc._visible") == true)		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
 
 		int keyToTap
 		int i = aiActionKeys.Find(iWaitingKeyCode)
@@ -250,7 +233,6 @@ event OnUpdate()
 		    endIf
 
 		    if keyToTap > 0
-		    	;TapKey(keyToTap)
 		    	HoldKey(keyToTap)
 		    	WaitMenuMode(0.1)
 		    	ReleaseKey(keyToTap)
@@ -293,7 +275,7 @@ event OnKeyDown(int KeyCode)
 	endif
 
     if bAllowKeyPress
-        if KeyCode != iWaitingKeyCode && iWaitingKeyCode != 0
+        if KeyCode != iWaitingKeyCode && iWaitingKeyCode != -1
             if !bIsComboKey     ; The player pressed a different key, so force the current one to process if there is one
                 UnregisterForUpdate()
                 OnUpdate()
@@ -317,7 +299,17 @@ endEvent
 
 event OnKeyUp(int KeyCode, Float HoldTime)
 	;debug.trace("gpp_keyhandler OnKeyUp - KeyCode: " + KeyCode + ", HoldTime: " + HoldTime)
-    
+
+    if bAllowKeyPress && KeyCode == iWaitingKeyCode && iMultiTap == 0
+        iMultiTap = 1
+        if bExtControlsEnabled
+        	RegisterForSingleUpdate(fMultiTapDelay)
+        	Utility.WaitMenuMode(fMultiTapDelay + 0.1)
+        else
+        	OnUpdate()
+        endIf
+    endIf
+
     if KeyCode == GPP_KEYCODE_C1
 		bIsC1Held = false
 		;debug.notification("Gamepad++ Combo Key 1 released")
@@ -332,10 +324,6 @@ event OnKeyUp(int KeyCode, Float HoldTime)
 		;debug.notification("Gamepad++ Combo Key 4 released")
 	endif
 
-    if bAllowKeyPress && KeyCode == iWaitingKeyCode && iMultiTap == 0
-        iMultiTap = 1
-        RegisterForSingleUpdate(fMultiTapDelay)
-    endIf
 endEvent
 
 ; - Disabled
