@@ -46,11 +46,16 @@ float property fLongPressDelay = 0.6 auto hidden
 ; Bools
 bool property bAllowKeyPress = true auto hidden
 bool property bFourthComboEnabled auto hidden
-bool property bExtControlsEnabled auto hidden
+bool property bExtControlsEnabled auto hidden		; Deprecated from v1.1
+bool property bMultiTapEnabled auto hidden
+bool property bLongPressEnabled auto hidden
 
 ; Ints
 int iWaitingKeyCode = -1
 int iMultiTap
+
+; Versioning
+float fCurrentVersion						; First digit = Main version, 2nd digit = Incremental, 3rd digit = Hotfix.  For example main version 1.0, hotfix 03 would be 1.03
 
 ; iEquip Support
 bool property biEquipLoaded auto hidden
@@ -79,7 +84,39 @@ Event OnInit()
 	OnPlayerLoadGame()
 EndEvent
 
+; #######################
+; ### Version Control ###
+
+float fCurrentVersion
+
+function checkVersion()
+    float fThisVersion = getVersion()
+    
+    if fThisVersion < fCurrentVersion
+        Debug.MessageBox("gpp_kh_msg_oldVersion")
+    elseIf fThisVersion == fCurrentVersion
+        ; Already latest version
+    else
+        ; Let's update
+        
+        ; Version 1.1
+        if fCurrentVersion < 1.1 && bExtControlsEnabled
+            bExtControlsEnabled = false
+            bMultiTapEnabled = true
+            bLongPressEnabled = true
+        endIf
+
+        fCurrentVersion = fThisVersion
+        Debug.Notification("$gpp_kh_not_updating{" + fCurrentVersion + "}")
+    endIf
+endFunction
+
+float function getVersion()
+    return 1.1
+endFunction
+
 event OnPlayerLoadGame()
+	checkVersion()
 	GotoState("")
     UnregisterForUpdate()
     
@@ -101,7 +138,6 @@ event OnPlayerLoadGame()
         SendModEvent("iEquip_KeysUpdated")
 	else
 		int i
-        
 		while i < 5
 			aiiEquipKeys[i] = -1
 			i += 1
@@ -127,13 +163,6 @@ Function RegisterKeys()
 	aiActionKeys[1] = GPP_KEYCODE_A2
 	aiActionKeys[2] = GPP_KEYCODE_A3
 	aiActionKeys[3] = GPP_KEYCODE_A4
-
-	;ToDo - remove following while loop, debug only
-	;int i
-	;while i < 4
-		;debug.trace("gpp_keyhandler RegisterKeys - aiActionKeys[" + i + " contains " + aiActionKeys[i])
-		;i += 1
-	;endWhile
 	
 	; Register for combo keys
 	RegisterForKey(GPP_KEYCODE_C1)
@@ -208,7 +237,7 @@ endEvent
 event OnUpdate()
     bAllowKeyPress = false
     
-	if iMultiTap == 1 || bExtControlsEnabled && !((iWaitingKeyCode == 266 || iWaitingKeyCode == 267) && IsMenuOpen("Loot Menu") && UI.GetBool("Loot Menu", "_root.Menu_mc._visible") == true)		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
+	if (iMultiTap == 1 || (iMultiTap == 0 && bLongPressEnabled) || (iMultiTap > 1 && bMultiTapEnabled)) && !((iWaitingKeyCode == 266 || iWaitingKeyCode == 267) && IsMenuOpen("Loot Menu") && UI.GetBool("Loot Menu", "_root.Menu_mc._visible") == true)		; Ignore everything except single press is extended controls disabled, and ignore DPad Up/Down if QuickLoot LootMenu is open
 
 		int keyToTap
 		int i = aiActionKeys.Find(iWaitingKeyCode)
@@ -287,13 +316,15 @@ event OnKeyDown(int KeyCode)
    	
         if iMultiTap == 0       ; This is the first time the key has been pressed
             RegisterForSingleUpdate(fLongPressDelay)
-        elseIf iMultiTap == 1   ; This is the second time the key has been pressed.
-            iMultiTap = 2
-            RegisterForSingleUpdate(fMultiTapDelay)
-        elseIf iMultiTap == 2   ; This is the third time the key has been pressed
-            iMultiTap = 3
-            RegisterForSingleUpdate(0.0)
-        endIf
+        elseIf bMultiTapEnabled
+        	if iMultiTap == 1   ; This is the second time the key has been pressed.
+	            iMultiTap = 2
+	            RegisterForSingleUpdate(fMultiTapDelay)
+	        elseIf iMultiTap == 2   ; This is the third time the key has been pressed
+	            iMultiTap = 3
+	            RegisterForSingleUpdate(0.0)
+	        endIf
+	    endIf
     endif
 endEvent
 
@@ -302,11 +333,11 @@ event OnKeyUp(int KeyCode, Float HoldTime)
 
     if bAllowKeyPress && KeyCode == iWaitingKeyCode && iMultiTap == 0
         iMultiTap = 1
-        if bExtControlsEnabled
+        if bMultiTapEnabled
         	RegisterForSingleUpdate(fMultiTapDelay)
         	Utility.WaitMenuMode(fMultiTapDelay + 0.1)
         else
-        	OnUpdate()
+        	RegisterForSingleUpdate(0.0)
         endIf
     endIf
 
