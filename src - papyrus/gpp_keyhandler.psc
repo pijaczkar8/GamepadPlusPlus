@@ -173,6 +173,10 @@ Function RegisterKeys()
 		RegisterForKey(GPP_KEYCODE_C4)
 	endif
 
+	GPP_COMBO1.SetValueInt(GPP_KEYCODE_C1)
+	GPP_COMBO2.SetValueInt(GPP_KEYCODE_C2)
+	GPP_COMBO3.SetValueInt(GPP_KEYCODE_C3)
+	GPP_COMBO4.SetValueInt(GPP_KEYCODE_C4)
 	SendModEvent("GPP_ComboKeysUpdated")
 EndFunction
 

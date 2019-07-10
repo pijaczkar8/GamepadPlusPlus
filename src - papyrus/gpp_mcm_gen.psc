@@ -157,6 +157,9 @@ State gen_tgl_fourthCombo
             MCM.SetInfoText("$gpp_mcm_gen_txt_fourthCombo")
         elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bFourthComboEnabled)
             KH.bFourthComboEnabled = !KH.bFourthComboEnabled
+            if !KH.bFourthComboEnabled
+                KH.GPP_KEYCODE_C4 = -1
+            endIf
             MCM.bUpdateKeys = true
             MCM.forcePageReset()
         endIf
