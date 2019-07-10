@@ -229,7 +229,9 @@ event OniEquipKeysUpdated(string sEventName, string sStringArg, Float fNumArg, F
 endEvent
 
 event OnMenuOpen(string MenuName)
-    GoToState("DISABLED")
+	if !MenuName == "FavoritesMenu"
+    	GoToState("DISABLED")
+    endIf
 endEvent
 
 event OnMenuClose(string MenuName)
