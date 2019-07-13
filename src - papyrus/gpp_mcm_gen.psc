@@ -25,7 +25,9 @@ int function saveData()             ; Save page data and return jObject
 	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C3)
 	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C4)
 	jArray.addInt(jPageObj, KH.bFourthComboEnabled as int)
-	jArray.addInt(jPageObj, KH.bExtControlsEnabled as int)
+	jArray.addInt(jPageObj, KH.bExtControlsEnabled as int)     ; Deprecated in 1.1
+    jArray.addInt(jPageObj, KH.bMultiTapEnabled as int)
+    jArray.addInt(jPageObj, KH.bLongPressEnabled as int)
 
     return jPageObj    
 endFunction
@@ -42,6 +44,8 @@ function loadData(int jPageObj)     ; Load page data from jPageObj
     KH.GPP_KEYCODE_C4 = jArray.getInt(jPageObj, 7)
     KH.bFourthComboEnabled = jArray.getInt(jPageObj, 8)
     KH.bExtControlsEnabled = jArray.getInt(jPageObj, 9)
+    KH.bMultiTapEnabled = jArray.getInt(jPageObj, 10)
+    KH.bLongPressEnabled = jArray.getInt(jPageObj, 11)
 endFunction
 
 function drawPage()
@@ -59,7 +63,8 @@ function drawPage()
 
 	MCM.AddHeaderOption("<font color='#C1A57A'>$gpp_mcm_gen_lbl_optSettings</font>")
 	MCM.AddToggleOptionST("gen_tgl_fourthCombo", "$gpp_mcm_gen_lbl_fourthCombo", KH.bFourthComboEnabled)
-	MCM.AddToggleOptionST("gen_tgl_extControls", "$gpp_mcm_gen_lbl_extControls", KH.bExtControlsEnabled)
+    MCM.AddToggleOptionST("gen_tgl_multiTap", "$gpp_mcm_gen_lbl_multiTap", KH.bMultiTapEnabled)
+    MCM.AddToggleOptionST("gen_tgl_longPress", "$gpp_mcm_gen_lbl_longPress", KH.bLongPressEnabled)
 
 	MCM.SetCursorPosition(1)
 	
@@ -75,8 +80,12 @@ function drawPage()
 	MCM.AddEmptyOption()
 
 	MCM.AddHeaderOption("<font color='#C1A57A'>$gpp_mcm_gen_lbl_keyPressOpts</font>")
-	MCM.AddSliderOptionST("gen_sld_multiTapDelay", "$gpp_mcm_gen_lbl_multiTapDelay", KH.fMultiTapDelay, "{1}s")
-	MCM.AddSliderOptionST("gen_sld_longPrsDelay", "$gpp_mcm_gen_lbl_longPrsDelay", KH.fLongPressDelay, "{1}s")
+    if KH.bMultiTapEnabled
+	   MCM.AddSliderOptionST("gen_sld_multiTapDelay", "$gpp_mcm_gen_lbl_multiTapDelay", KH.fMultiTapDelay, "{1}s")
+    endIf
+    if KH.bLongPressEnabled
+	   MCM.AddSliderOptionST("gen_sld_longPrsDelay", "$gpp_mcm_gen_lbl_longPrsDelay", KH.fLongPressDelay, "{1}s")
+    endIf
 endFunction
 
 ; ---------------
@@ -157,7 +166,7 @@ State gen_tgl_fourthCombo
             MCM.SetInfoText("$gpp_mcm_gen_txt_fourthCombo")
         elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bFourthComboEnabled)
             KH.bFourthComboEnabled = !KH.bFourthComboEnabled
-            if !KH.bFourthComboEnabled
+	    if !KH.bFourthComboEnabled
                 KH.GPP_KEYCODE_C4 = -1
             endIf
             MCM.bUpdateKeys = true
@@ -166,13 +175,26 @@ State gen_tgl_fourthCombo
     endEvent
 endState
 
-State gen_tgl_extControls
+State gen_tgl_multiTap
     event OnBeginState()
         if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_extControls")
-        elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bExtControlsEnabled)
-            KH.bExtControlsEnabled = !KH.bExtControlsEnabled
-            MCM.SetToggleOptionValueST(KH.bExtControlsEnabled)
+            MCM.SetInfoText("$gpp_mcm_gen_txt_multiTap")
+        elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bMultiTapEnabled)
+            KH.bMultiTapEnabled = !KH.bMultiTapEnabled
+            MCM.SetToggleOptionValueST(KH.bMultiTapEnabled)
+            MCM.ForcePageReset()
+        endIf
+    endEvent
+endState
+
+State gen_tgl_longPress
+    event OnBeginState()
+        if currentEvent == "Highlight"
+            MCM.SetInfoText("$gpp_mcm_gen_txt_longPress")
+        elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bLongPressEnabled)
+            KH.bLongPressEnabled = !KH.bLongPressEnabled
+            MCM.SetToggleOptionValueST(KH.bLongPressEnabled)
+            MCM.ForcePageReset()
         endIf
     endEvent
 endState

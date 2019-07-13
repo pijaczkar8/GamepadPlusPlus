@@ -117,7 +117,7 @@ function drawPage()
 		    if KH.aiC2Actions[1] > 0
 		    	MCM.AddInputOptionST("label_C2_A1_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[1])
 		    endIf
-		    if KH.bExtControlsEnabled
+		    if KH.bMultiTapEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A1_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC2Actions[2], mcmUnmapFLAG)
 			    if KH.aiC2Actions[2] > 0
 			    	MCM.AddInputOptionST("label_C2_A1_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[2])
@@ -126,6 +126,8 @@ function drawPage()
 			    if KH.aiC2Actions[3] > 0
 			    	MCM.AddInputOptionST("label_C2_A1_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[3])
 			    endIf
+            endIf
+            if KH.bLongPressEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A1_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC2Actions[0], mcmUnmapFLAG)
 			    if KH.aiC2Actions[0] > 0
 			    	MCM.AddInputOptionST("label_C2_A1_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[0])
@@ -139,7 +141,7 @@ function drawPage()
 		    if KH.aiC2Actions[5] > 0
 		    	MCM.AddInputOptionST("label_C2_A2_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[5])
 		    endIf
-		    if KH.bExtControlsEnabled
+		    if KH.bMultiTapEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A2_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC2Actions[6], mcmUnmapFLAG)
 			    if KH.aiC2Actions[6] > 0
 			    	MCM.AddInputOptionST("label_C2_A2_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[6])
@@ -148,6 +150,8 @@ function drawPage()
 			    if KH.aiC2Actions[7] > 0
 			    	MCM.AddInputOptionST("label_C2_A2_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[7])
 			    endIf
+            endIf
+            if KH.bLongPressEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A2_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC2Actions[4], mcmUnmapFLAG)
 			    if KH.aiC2Actions[4] > 0
 			    	MCM.AddInputOptionST("label_C2_A2_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[4])
@@ -161,7 +165,7 @@ function drawPage()
 		    if KH.aiC2Actions[9] > 0
 		    	MCM.AddInputOptionST("label_C2_A3_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[9])
 		    endIf
-		    if KH.bExtControlsEnabled
+		    if KH.bMultiTapEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A3_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC2Actions[10], mcmUnmapFLAG)
 			    if KH.aiC2Actions[10] > 0
 			    	MCM.AddInputOptionST("label_C2_A3_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[10])
@@ -170,6 +174,8 @@ function drawPage()
 			    if KH.aiC2Actions[11] > 0
 			    	MCM.AddInputOptionST("label_C2_A3_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[11])
 			    endIf
+            endIf
+            if KH.bLongPressEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A3_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC2Actions[8], mcmUnmapFLAG)
 			    if KH.aiC2Actions[8] > 0
 			    	MCM.AddInputOptionST("label_C2_A3_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[8])
@@ -183,7 +189,7 @@ function drawPage()
 		    if KH.aiC2Actions[13] > 0
 		    	MCM.AddInputOptionST("label_C2_A4_sngl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[13])
 		    endIf
-		    if KH.bExtControlsEnabled
+		    if KH.bMultiTapEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A4_double", "$gpp_mcm_com_lbl_combodouble", KH.aiC2Actions[14], mcmUnmapFLAG)
 			    if KH.aiC2Actions[14] > 0
 			    	MCM.AddInputOptionST("label_C2_A4_dbl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[14])
@@ -192,6 +198,8 @@ function drawPage()
 			    if KH.aiC2Actions[15] > 0
 			    	MCM.AddInputOptionST("label_C2_A4_trpl", "$gpp_mcm_com_lbl_addLabel", asDescriptions[15])
 			    endIf
+            endIf
+            if KH.bLongPressEnabled
 			    MCM.AddKeyMapOptionST("action_C2_A4_hold", "$gpp_mcm_com_lbl_combohold", KH.aiC2Actions[12], mcmUnmapFLAG)
 			    if KH.aiC2Actions[12] > 0
 			    	MCM.AddInputOptionST("label_C2_A4_hld", "$gpp_mcm_com_lbl_addLabel", asDescriptions[12])

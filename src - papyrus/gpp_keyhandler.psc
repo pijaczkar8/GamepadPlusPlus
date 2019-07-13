@@ -87,13 +87,11 @@ EndEvent
 ; #######################
 ; ### Version Control ###
 
-float fCurrentVersion
-
 function checkVersion()
     float fThisVersion = getVersion()
     
     if fThisVersion < fCurrentVersion
-        Debug.MessageBox("gpp_kh_msg_oldVersion")
+        Debug.MessageBox("$gpp_kh_msg_oldVersion")
     elseIf fThisVersion == fCurrentVersion
         ; Already latest version
     else
@@ -107,7 +105,7 @@ function checkVersion()
         endIf
 
         fCurrentVersion = fThisVersion
-        Debug.Notification("$gpp_kh_not_updating{" + fCurrentVersion + "}")
+        Debug.Notification("$gpp_kh_not_updating")		; Need to change the version number in the strings files
     endIf
 endFunction
 
