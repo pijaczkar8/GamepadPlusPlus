@@ -1,54 +1,28 @@
 Scriptname gpp_mcm_gen extends gpp_mcm_page
 
-int mcmUnmapFLAG
-
 bool bFirstView = true
+bool queue_key_update
+
+string property MCMSettingsPath = "Data/Gamepad++/Presets/" autoReadOnly
+string property FileExt = ".gpp" autoReadonly
 
 ; #############
 ; ### SETUP ###
+event OnInit()
+	if RegisterModule("$gpp_mcm_lbl_gen", 0) != OK
+		KeepTryingToRegister()
+	endif
+endEvent
 
-function initData()                  ; Initialize page specific data
+event OnPageInit()
+    SetModName("")
+    SetSplashScreen("GPP/gpp_splash.swf", 196, 98)
+    RegisterForKey(KH.GPP_HOTKEY_TIM)
+endevent
 
-    mcmUnmapFLAG = MCM.OPTION_FLAG_WITH_UNMAP
+event OnPageDraw()
+    nl_mcm MCM = UNSAFE_RAW_MCM
 
-endFunction
-
-int function saveData()             ; Save page data and return jObject
-	int jPageObj = jArray.object()
-
-    jArray.addInt(jPageObj, KH.GPP_KEYCODE_A1)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_A2)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_A3)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_A4)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C1)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C2)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C3)
-	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C4)
-	jArray.addInt(jPageObj, KH.bFourthComboEnabled as int)
-	jArray.addInt(jPageObj, KH.bExtControlsEnabled as int)     ; Deprecated in 1.1
-    jArray.addInt(jPageObj, KH.bMultiTapEnabled as int)
-    jArray.addInt(jPageObj, KH.bLongPressEnabled as int)
-
-    return jPageObj    
-endFunction
-
-function loadData(int jPageObj)     ; Load page data from jPageObj
-
-	KH.GPP_KEYCODE_A1 = jArray.getInt(jPageObj, 0)
-    KH.GPP_KEYCODE_A2 = jArray.getInt(jPageObj, 1)
-    KH.GPP_KEYCODE_A3 = jArray.getInt(jPageObj, 2)
-    KH.GPP_KEYCODE_A4 = jArray.getInt(jPageObj, 3)
-    KH.GPP_KEYCODE_C1 = jArray.getInt(jPageObj, 4)
-    KH.GPP_KEYCODE_C2 = jArray.getInt(jPageObj, 5)
-    KH.GPP_KEYCODE_C3 = jArray.getInt(jPageObj, 6)
-    KH.GPP_KEYCODE_C4 = jArray.getInt(jPageObj, 7)
-    KH.bFourthComboEnabled = jArray.getInt(jPageObj, 8)
-    KH.bExtControlsEnabled = jArray.getInt(jPageObj, 9)
-    KH.bMultiTapEnabled = jArray.getInt(jPageObj, 10)
-    KH.bLongPressEnabled = jArray.getInt(jPageObj, 11)
-endFunction
-
-function drawPage()
 	if bFirstView
 		MCM.ShowMessage("$gpp_mcm_gen_txt_firstView", false, "$gpp_common_msg_exit")
 		bFirstView = false
@@ -86,74 +60,130 @@ function drawPage()
     if KH.bLongPressEnabled
 	   MCM.AddSliderOptionST("gen_sld_longPrsDelay", "$gpp_mcm_gen_lbl_longPrsDelay", KH.fLongPressDelay, "{1}s")
     endIf
-endFunction
+endevent
+
+Event OnConfigClose()
+    UnregisterForKey(KH.GPP_HOTKEY_TIM)
+    if queue_key_update
+    	queue_key_update = false
+    	KH.RegisterKeys()
+    endIf
+endEvent
+
+int function SaveData()             ; Save page data and return jObject
+	int jPageObj = jArray.object()
+
+    jArray.addInt(jPageObj, KH.GPP_KEYCODE_A1)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_A2)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_A3)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_A4)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C1)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C2)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C3)
+	jArray.addInt(jPageObj, KH.GPP_KEYCODE_C4)
+	jArray.addInt(jPageObj, KH.bFourthComboEnabled as int)
+	jArray.addInt(jPageObj, KH.bExtControlsEnabled as int)     ; Deprecated in 1.1
+    jArray.addInt(jPageObj, KH.bMultiTapEnabled as int)
+    jArray.addInt(jPageObj, KH.bLongPressEnabled as int)
+
+    return jPageObj    
+endfunction
+
+function LoadData(int jPageObj)     ; Load page data from jPageObj
+	KH.GPP_KEYCODE_A1 = jArray.getInt(jPageObj, 0)
+    KH.GPP_KEYCODE_A2 = jArray.getInt(jPageObj, 1)
+    KH.GPP_KEYCODE_A3 = jArray.getInt(jPageObj, 2)
+    KH.GPP_KEYCODE_A4 = jArray.getInt(jPageObj, 3)
+    KH.GPP_KEYCODE_C1 = jArray.getInt(jPageObj, 4)
+    KH.GPP_KEYCODE_C2 = jArray.getInt(jPageObj, 5)
+    KH.GPP_KEYCODE_C3 = jArray.getInt(jPageObj, 6)
+    KH.GPP_KEYCODE_C4 = jArray.getInt(jPageObj, 7)
+    KH.bFourthComboEnabled = jArray.getInt(jPageObj, 8)
+    KH.bExtControlsEnabled = jArray.getInt(jPageObj, 9)
+    KH.bMultiTapEnabled = jArray.getInt(jPageObj, 10)
+    KH.bLongPressEnabled = jArray.getInt(jPageObj, 11)
+endfunction
 
 ; ---------------
 ; - Action Keys -
 ; ---------------
 
+Event OnKeyDown(Int KeyCode)
+    if KeyCode == KH.GPP_HOTKEY_TIM
+        ;ToggleInputMode() ; when ever the key is pressed will only work in menu mode
+    endif
+EndEvent
+
 State key_A1
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyA")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_A1 = currentVar as int
-            else
-                KH.GPP_KEYCODE_A1 = 268
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_A1)
-            MCM.bUpdateKeys = true
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyA")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_A1 = 268
+        SetKeyMapOptionValueST(268)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_A1 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 State key_A2
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyA")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_A2 = currentVar as int
-            else
-                KH.GPP_KEYCODE_A2 = 269
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_A2)
-            MCM.bUpdateKeys = true      
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyA")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_A2 = 269
+        SetKeyMapOptionValueST(269)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_A2 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 State key_A3
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyA")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_A3 = currentVar as int
-            else
-                KH.GPP_KEYCODE_A3 = 266
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_A3)
-            MCM.bUpdateKeys = true    
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyA")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_A3 = 266
+        SetKeyMapOptionValueST(266)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_A3 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 State key_A4
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyA")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_A4 = currentVar as int
-            else
-                KH.GPP_KEYCODE_A4 = 267
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_A4)
-            MCM.bUpdateKeys = true
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyA")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_A4 = 267
+        SetKeyMapOptionValueST(267)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_A4 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 ; ---------------------
@@ -161,42 +191,60 @@ endState
 ; ---------------------
 
 State gen_tgl_fourthCombo
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_fourthCombo")
-        elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bFourthComboEnabled)
-            KH.bFourthComboEnabled = !KH.bFourthComboEnabled
-	    if !KH.bFourthComboEnabled
-                KH.GPP_KEYCODE_C4 = -1
-            endIf
-            MCM.bUpdateKeys = true
-            MCM.forcePageReset()
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_fourthCombo")
+    endevent
+
+    event OnDefaultST()
+        KH.bFourthComboEnabled = false
+        KH.GPP_KEYCODE_C4 = -1
+        queue_key_update = true
+        ForcePageReset()
+    endevent
+
+    event OnSelectST()
+        bool tmp = !KH.bFourthComboEnabled
+        
+        if !tmp
+            KH.GPP_KEYCODE_C4 = -1
+        endif
+
+        KH.bFourthComboEnabled = tmp
+        queue_key_update = true
+        ForcePageReset()
+    endevent
 endState
 
 State gen_tgl_multiTap
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_multiTap")
-        elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bMultiTapEnabled)
-            KH.bMultiTapEnabled = !KH.bMultiTapEnabled
-            MCM.SetToggleOptionValueST(KH.bMultiTapEnabled)
-            MCM.ForcePageReset()
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_multiTap")
+    endevent
+
+    event OnDefaultST()
+        KH.bMultiTapEnabled = false
+        ForcePageReset()
+    endevent
+
+    event OnSelectST()
+        KH.bMultiTapEnabled = !KH.bMultiTapEnabled
+        ForcePageReset()
+    endevent
 endState
 
 State gen_tgl_longPress
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_longPress")
-        elseIf currentEvent == "Select" || (currentEvent == "Default" && KH.bLongPressEnabled)
-            KH.bLongPressEnabled = !KH.bLongPressEnabled
-            MCM.SetToggleOptionValueST(KH.bLongPressEnabled)
-            MCM.ForcePageReset()
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_longPress")
+    endevent
+
+    event OnDefaultST()
+        KH.bLongPressEnabled = false
+        ForcePageReset()
+    endevent
+
+    event OnSelectST()
+        KH.bLongPressEnabled = !KH.bLongPressEnabled
+        ForcePageReset()
+    endevent
 endState
 
 ; --------------
@@ -204,67 +252,75 @@ endState
 ; --------------
 
 State key_C1
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyC")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_C1 = currentVar as int
-            else
-                KH.GPP_KEYCODE_C1 = 277
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C1)
-            MCM.bUpdateKeys = true
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyC")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_C1 = 277
+        SetKeyMapOptionValueST(277)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_C1 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 State key_C2
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyC")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_C2 = currentVar as int
-            else
-                KH.GPP_KEYCODE_C2 = 274
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C2)
-            MCM.bUpdateKeys = true
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyC")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_C2 = 274
+        SetKeyMapOptionValueST(274)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_C2 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 State key_C3
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyC")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_C3 = currentVar as int
-            else
-                KH.GPP_KEYCODE_C3 = 275
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C3)
-            MCM.bUpdateKeys = true
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyC")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_C3 = 275
+        SetKeyMapOptionValueST(275)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_C3 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 State key_C4
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_keyC")
-        elseIf currentEvent == "Change" || "Default"
-            if currentEvent == "Change"
-                KH.GPP_KEYCODE_C4 = currentVar as int
-            else
-                KH.GPP_KEYCODE_C4 = -1
-            endIf
-            MCM.SetKeyMapOptionValueST(KH.GPP_KEYCODE_C4)
-            MCM.bUpdateKeys = true
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_keyC")
+    endevent
+
+    event OnDefaultST()
+        KH.GPP_KEYCODE_C4 = -1
+        SetKeyMapOptionValueST(-1)
+        queue_key_update = true
+    endevent
+
+    event OnKeyMapChangeST(int keycode)
+        KH.GPP_KEYCODE_C4 = keycode
+        SetKeyMapOptionValueST(keycode)
+        queue_key_update = true
+    endevent
 endState
 
 ; ---------------------
@@ -272,27 +328,31 @@ endState
 ; ---------------------
 
 State gen_sld_multiTapDelay
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_multiTapDelay")
-        elseIf currentEvent == "Open"
-            MCM.fillSlider(KH.fMultiTapDelay, 0.2, 1.0, 0.1, 0.3)
-        elseIf currentEvent == "Accept"
-            KH.fMultiTapDelay = currentVar
-            MCM.SetSliderOptionValueST(KH.fMultiTapDelay, "{1}s")
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_multiTapDelay")
+    endevent
+
+    event OnSliderOpenST()
+        SetSliderDialog(KH.fMultiTapDelay, 0.2, 1.0, 0.1, 0.3)
+    endevent
+
+    event OnSliderAcceptST(float value)
+        KH.fMultiTapDelay = value
+        SetSliderOptionValueST(value, "{1}s")
+    endevent
 endState
 
 State gen_sld_longPrsDelay
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_gen_txt_longPrsDelay")
-        elseIf currentEvent == "Open"
-            MCM.fillSlider(KH.fLongPressDelay, 0.3, 1.5, 0.1, 0.6)
-        elseIf currentEvent == "Accept"
-            KH.fLongPressDelay = currentVar
-            MCM.SetSliderOptionValueST(KH.fLongPressDelay, "{1}s")
-        endIf
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_gen_txt_longPrsDelay")
+    endevent
+
+    event OnSliderOpenST()
+        SetSliderDialog(KH.fLongPressDelay, 0.3, 1.5, 0.1, 0.6)
+    endevent
+
+    event OnSliderAcceptST(float value)
+        KH.fLongPressDelay = value
+        SetSliderOptionValueST(value, "{1}s")
+    endevent
 endState

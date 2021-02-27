@@ -5,6 +5,9 @@ import Game
 import Utility
 import UI
 
+int[] property aiKeyCodes auto hidden
+string[] property asKeyNames auto hidden
+
 ; Action Keys
 int property GPP_KEYCODE_A1 = 268 auto hidden 		; Default: DPad Left
 int property GPP_KEYCODE_A2 = 269 auto hidden 		; Default: DPad Right
@@ -67,6 +70,42 @@ Event OnInit()
 	aiC2Actions = new int[16]
 	aiC3Actions = new int[16]
 	aiC4Actions = new int[16]
+
+	aiKeyCodes = new int[16]
+	aiKeyCodes[0] = 266
+    aiKeyCodes[1] = 267
+	aiKeyCodes[2] = 268
+	aiKeyCodes[3] = 269
+	aiKeyCodes[4] = 270
+    aiKeyCodes[5] = 271
+	aiKeyCodes[6] = 272
+	aiKeyCodes[7] = 273
+	aiKeyCodes[8] = 274
+    aiKeyCodes[9] = 275
+	aiKeyCodes[10] = 276
+	aiKeyCodes[11] = 277
+	aiKeyCodes[12] = 278
+    aiKeyCodes[13] = 279
+	aiKeyCodes[14] = 280
+	aiKeyCodes[15] = 281
+
+	asKeyNames = new string[16]
+	asKeyNames[0] = "$gpp_mcm_key_DPadUp"
+    asKeyNames[1] = "$gpp_mcm_key_DPadDown"
+	asKeyNames[2] = "$gpp_mcm_key_DPadLeft"
+	asKeyNames[3] = "$gpp_mcm_key_DPadRight"
+	asKeyNames[4] = "$gpp_mcm_key_Start"
+    asKeyNames[5] = "$gpp_mcm_key_Back"
+	asKeyNames[6] = "$gpp_mcm_key_LSClick"
+	asKeyNames[7] = "$gpp_mcm_key_RSClick"
+	asKeyNames[8] = "$gpp_mcm_key_LB"
+    asKeyNames[9] = "$gpp_mcm_key_RB"
+	asKeyNames[10] = "$gpp_mcm_key_A"
+	asKeyNames[11] = "$gpp_mcm_key_B"
+	asKeyNames[12] = "$gpp_mcm_key_X"
+    asKeyNames[13] = "$gpp_mcm_key_Y"
+	asKeyNames[14] = "$gpp_mcm_key_LT"
+	asKeyNames[15] = "$gpp_mcm_key_RT"
 
 	int i
 	while i < 16
@@ -185,18 +224,12 @@ function RegisterForMenus()
     RegisterForMenu("Console Native UI Menu")
     RegisterForMenu("ContainerMenu")
     RegisterForMenu("Crafting Menu")
-    ;RegisterForMenu("Credits Menu")
-    ;RegisterForMenu("Cursor Menu")
     RegisterForMenu("CustomMenu")
-    ;RegisterForMenu("Debug Text Menu")
     RegisterForMenu("Dialogue Menu")
-    ;RegisterForMenu("Fader Menu")
     RegisterForMenu("FavoritesMenu")
     RegisterForMenu("GiftMenu")
-    ;RegisterForMenu("HUD Menu")
     RegisterForMenu("InventoryMenu")
     RegisterForMenu("Journal Menu")
-    ;RegisterForMenu("Kinect Menu")
     RegisterForMenu("LevelUp Menu")
     RegisterForMenu("Loading Menu")
     RegisterForMenu("Lockpicking Menu")
@@ -204,15 +237,10 @@ function RegisterForMenus()
     RegisterForMenu("Main Menu")
     RegisterForMenu("MapMenu")
     RegisterForMenu("MessageBoxMenu")
-    ;RegisterForMenu("Mist Menu")
-    ;RegisterForMenu("Overlay Interaction Menu")
-    ;RegisterForMenu("Overlay Menu")
     RegisterForMenu("Quantity Menu")
     RegisterForMenu("RaceSex Menu")
     RegisterForMenu("Sleep/Wait Menu")
     RegisterForMenu("StatsMenu")
-    ;RegisterForMenu("TitleSequence Menu")
-    ;RegisterForMenu("Top Menu")
     RegisterForMenu("Training Menu")
     RegisterForMenu("Tutorial Menu")
     RegisterForMenu("TweenMenu")

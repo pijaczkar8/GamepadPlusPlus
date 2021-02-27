@@ -1,100 +1,21 @@
 Scriptname gpp_mcm_combo_one extends gpp_mcm_page
 
-int mcmUnmapFLAG
-
 string[] asDescriptions
 
 ; #############
 ; ### SETUP ###
+event OnInit()
+	if RegisterModule("$gpp_mcm_lbl_combo_one", 2) != OK
+		KeepTryingToRegister()
+	endif
+endEvent
 
-function initData()                  ; Initialize page specific data
-    mcmUnmapFLAG = MCM.OPTION_FLAG_WITH_UNMAP
-    asDescriptions = new string[16]
-endFunction
+event OnPageInit()
+	asDescriptions = new string[16]
+endevent
 
-int function saveData()             ; sC1Ave page data and return jObject
-    int jPageObj = jArray.object()
-
-    jArray.addInt(jPageObj, KH.aiC1Actions[1])
-    jArray.addStr(jPageObj, asDescriptions[1])
-    jArray.addInt(jPageObj, KH.aiC1Actions[2])
-    jArray.addStr(jPageObj, asDescriptions[2])
-    jArray.addInt(jPageObj, KH.aiC1Actions[3])
-    jArray.addStr(jPageObj, asDescriptions[3])
-    jArray.addInt(jPageObj, KH.aiC1Actions[0])
-    jArray.addStr(jPageObj, asDescriptions[0])
-
-    jArray.addInt(jPageObj, KH.aiC1Actions[5])
-    jArray.addStr(jPageObj, asDescriptions[5])
-    jArray.addInt(jPageObj, KH.aiC1Actions[6])
-    jArray.addStr(jPageObj, asDescriptions[6])
-    jArray.addInt(jPageObj, KH.aiC1Actions[7])
-    jArray.addStr(jPageObj, asDescriptions[7])
-    jArray.addInt(jPageObj, KH.aiC1Actions[4])
-    jArray.addStr(jPageObj, asDescriptions[4])
-
-    jArray.addInt(jPageObj, KH.aiC1Actions[9])
-    jArray.addStr(jPageObj, asDescriptions[9])
-    jArray.addInt(jPageObj, KH.aiC1Actions[10])
-    jArray.addStr(jPageObj, asDescriptions[10])
-    jArray.addInt(jPageObj, KH.aiC1Actions[11])
-    jArray.addStr(jPageObj, asDescriptions[11])
-    jArray.addInt(jPageObj, KH.aiC1Actions[8])
-    jArray.addStr(jPageObj, asDescriptions[8])
-
-    jArray.addInt(jPageObj, KH.aiC1Actions[13])
-    jArray.addStr(jPageObj, asDescriptions[13])
-    jArray.addInt(jPageObj, KH.aiC1Actions[14])
-    jArray.addStr(jPageObj, asDescriptions[14])
-    jArray.addInt(jPageObj, KH.aiC1Actions[15])
-    jArray.addStr(jPageObj, asDescriptions[15])
-    jArray.addInt(jPageObj, KH.aiC1Actions[12])
-    jArray.addStr(jPageObj, asDescriptions[12])
-
-    return jPageObj    
-endFunction
-
-function loadData(int jPageObj)     ; Load page data from jPageObj
-
-    KH.aiC1Actions[1] = jArray.getInt(jPageObj, 0)
-    asDescriptions[1] = jArray.getStr(jPageObj, 1)
-    KH.aiC1Actions[2] = jArray.getInt(jPageObj, 2)
-    asDescriptions[2] = jArray.getStr(jPageObj, 3)
-    KH.aiC1Actions[3] = jArray.getInt(jPageObj, 4)
-    asDescriptions[3] = jArray.getStr(jPageObj, 5)
-    KH.aiC1Actions[0] = jArray.getInt(jPageObj, 6)
-    asDescriptions[0] = jArray.getStr(jPageObj, 7)
-
-    KH.aiC1Actions[5] = jArray.getInt(jPageObj, 8)
-    asDescriptions[5] = jArray.getStr(jPageObj, 9)
-    KH.aiC1Actions[6] = jArray.getInt(jPageObj, 10)
-    asDescriptions[6] = jArray.getStr(jPageObj, 11)
-    KH.aiC1Actions[7] = jArray.getInt(jPageObj, 12)
-    asDescriptions[7] = jArray.getStr(jPageObj, 13)
-    KH.aiC1Actions[4] = jArray.getInt(jPageObj, 14)
-    asDescriptions[4] = jArray.getStr(jPageObj, 15)
-
-    KH.aiC1Actions[9] = jArray.getInt(jPageObj, 16)
-    asDescriptions[9] = jArray.getStr(jPageObj, 17)
-    KH.aiC1Actions[10] = jArray.getInt(jPageObj, 18)
-    asDescriptions[10] = jArray.getStr(jPageObj, 19)
-    KH.aiC1Actions[11] = jArray.getInt(jPageObj, 20)
-    asDescriptions[11] = jArray.getStr(jPageObj, 21)
-    KH.aiC1Actions[8] = jArray.getInt(jPageObj, 22)
-    asDescriptions[8] = jArray.getStr(jPageObj, 23)
-
-    KH.aiC1Actions[13] = jArray.getInt(jPageObj, 24)
-    asDescriptions[13] = jArray.getStr(jPageObj, 25)
-    KH.aiC1Actions[14] = jArray.getInt(jPageObj, 26)
-    asDescriptions[14] = jArray.getStr(jPageObj, 27)
-    KH.aiC1Actions[15] = jArray.getInt(jPageObj, 28)
-    asDescriptions[15] = jArray.getStr(jPageObj, 29)
-    KH.aiC1Actions[12] = jArray.getInt(jPageObj, 30)
-    asDescriptions[12] = jArray.getStr(jPageObj, 31)
-
-endFunction
-
-function drawPage()
+event OnPageDraw()
+    nl_mcm MCM = UNSAFE_RAW_MCM
 
     int i
     while i < 16
@@ -216,8 +137,88 @@ function drawPage()
 		MCM.AddTextOptionST("C1_txt_C1NoKey", "$gpp_mcm_com_txt_noKey1", "")
 		MCM.AddTextOptionST("C1_txt_C1NoKey2", "$gpp_mcm_com_txt_noKey2", "")
 	endIf
+endevent
 
-endFunction
+int function SaveData()             ; sC1Ave page data and return jObject
+    int jPageObj = jArray.object()
+
+    jArray.addInt(jPageObj, KH.aiC1Actions[1])
+    jArray.addStr(jPageObj, asDescriptions[1])
+    jArray.addInt(jPageObj, KH.aiC1Actions[2])
+    jArray.addStr(jPageObj, asDescriptions[2])
+    jArray.addInt(jPageObj, KH.aiC1Actions[3])
+    jArray.addStr(jPageObj, asDescriptions[3])
+    jArray.addInt(jPageObj, KH.aiC1Actions[0])
+    jArray.addStr(jPageObj, asDescriptions[0])
+
+    jArray.addInt(jPageObj, KH.aiC1Actions[5])
+    jArray.addStr(jPageObj, asDescriptions[5])
+    jArray.addInt(jPageObj, KH.aiC1Actions[6])
+    jArray.addStr(jPageObj, asDescriptions[6])
+    jArray.addInt(jPageObj, KH.aiC1Actions[7])
+    jArray.addStr(jPageObj, asDescriptions[7])
+    jArray.addInt(jPageObj, KH.aiC1Actions[4])
+    jArray.addStr(jPageObj, asDescriptions[4])
+
+    jArray.addInt(jPageObj, KH.aiC1Actions[9])
+    jArray.addStr(jPageObj, asDescriptions[9])
+    jArray.addInt(jPageObj, KH.aiC1Actions[10])
+    jArray.addStr(jPageObj, asDescriptions[10])
+    jArray.addInt(jPageObj, KH.aiC1Actions[11])
+    jArray.addStr(jPageObj, asDescriptions[11])
+    jArray.addInt(jPageObj, KH.aiC1Actions[8])
+    jArray.addStr(jPageObj, asDescriptions[8])
+
+    jArray.addInt(jPageObj, KH.aiC1Actions[13])
+    jArray.addStr(jPageObj, asDescriptions[13])
+    jArray.addInt(jPageObj, KH.aiC1Actions[14])
+    jArray.addStr(jPageObj, asDescriptions[14])
+    jArray.addInt(jPageObj, KH.aiC1Actions[15])
+    jArray.addStr(jPageObj, asDescriptions[15])
+    jArray.addInt(jPageObj, KH.aiC1Actions[12])
+    jArray.addStr(jPageObj, asDescriptions[12])
+
+    return jPageObj    
+endfunction
+
+function LoadData(int jPageObj)     ; Load page data from jPageObj
+
+    KH.aiC1Actions[1] = jArray.getInt(jPageObj, 0)
+    asDescriptions[1] = jArray.getStr(jPageObj, 1)
+    KH.aiC1Actions[2] = jArray.getInt(jPageObj, 2)
+    asDescriptions[2] = jArray.getStr(jPageObj, 3)
+    KH.aiC1Actions[3] = jArray.getInt(jPageObj, 4)
+    asDescriptions[3] = jArray.getStr(jPageObj, 5)
+    KH.aiC1Actions[0] = jArray.getInt(jPageObj, 6)
+    asDescriptions[0] = jArray.getStr(jPageObj, 7)
+
+    KH.aiC1Actions[5] = jArray.getInt(jPageObj, 8)
+    asDescriptions[5] = jArray.getStr(jPageObj, 9)
+    KH.aiC1Actions[6] = jArray.getInt(jPageObj, 10)
+    asDescriptions[6] = jArray.getStr(jPageObj, 11)
+    KH.aiC1Actions[7] = jArray.getInt(jPageObj, 12)
+    asDescriptions[7] = jArray.getStr(jPageObj, 13)
+    KH.aiC1Actions[4] = jArray.getInt(jPageObj, 14)
+    asDescriptions[4] = jArray.getStr(jPageObj, 15)
+
+    KH.aiC1Actions[9] = jArray.getInt(jPageObj, 16)
+    asDescriptions[9] = jArray.getStr(jPageObj, 17)
+    KH.aiC1Actions[10] = jArray.getInt(jPageObj, 18)
+    asDescriptions[10] = jArray.getStr(jPageObj, 19)
+    KH.aiC1Actions[11] = jArray.getInt(jPageObj, 20)
+    asDescriptions[11] = jArray.getStr(jPageObj, 21)
+    KH.aiC1Actions[8] = jArray.getInt(jPageObj, 22)
+    asDescriptions[8] = jArray.getStr(jPageObj, 23)
+
+    KH.aiC1Actions[13] = jArray.getInt(jPageObj, 24)
+    asDescriptions[13] = jArray.getStr(jPageObj, 25)
+    KH.aiC1Actions[14] = jArray.getInt(jPageObj, 26)
+    asDescriptions[14] = jArray.getStr(jPageObj, 27)
+    KH.aiC1Actions[15] = jArray.getInt(jPageObj, 28)
+    asDescriptions[15] = jArray.getStr(jPageObj, 29)
+    KH.aiC1Actions[12] = jArray.getInt(jPageObj, 30)
+    asDescriptions[12] = jArray.getStr(jPageObj, 31)
+endfunction
 
 ; -------------------------
 ; - C1 + A1 Combo Actions -

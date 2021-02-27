@@ -8,25 +8,31 @@ string[] modStates
 ; #############
 ; ### SETUP ###
 ; #############
+event OnInit()
+	if RegisterModule("$gpp_mcm_lbl_inf", 6) != OK
+		KeepTryingToRegister()
+	endif
+endEvent
 
-function initData()                  ; Initialize page specific data
+event OnPageInit()
 	modStates = new string[2]
 	modStates[0] = "$gpp_mcm_inf_lbl_notDetected"
 	modStates[1] = "$gpp_mcm_inf_lbl_detected"
-endFunction
+endevent
 
-int function saveData()             ; Save page data and return jObject
+int function SaveData()             ; Save page data and return jObject
     return jArray.object()
-endFunction
+endfunction
 
-function loadData(int jPageObj)     ; Load page data from jPageObj
-endFunction
+function LoadData(int jPageObj)     ; Load page data from jPageObj
+endfunction
 
 ; #####################
 ; ### Profiles Page ###
 ; #####################
 
-function drawPage()
+event OnPageDraw()
+    nl_mcm MCM = UNSAFE_RAW_MCM
 	int jObj = JValue.readFromDirectory(MCM.MCMSettingsPath, MCM.FileExt)
 
 	MCM.AddHeaderOption("<font color='#C4A57A'>$gpp_mcm_inf_lbl_presets</font>")
@@ -46,63 +52,70 @@ function drawPage()
 	MCM.AddHeaderOption("<font color='#C4A57A'>$gpp_mcm_inf_lbl_info</font>")
 	MCM.AddEmptyOption()
 	MCM.AddTextOptionST("inf_txt_iequip", "$gpp_mcm_inf_lbl_iequip", modStates[(Game.GetModByName("iEquip.esp") != 255) as int])
-
-endFunction
+endevent
 
 ; ------------
 ; - Profiles -
 ; ------------
 
 State inf_inp_savepreset
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_inf_txt_savepreset")
-        elseIf currentEvent == "Open"
-			MCM.SetInputDialogStartText("$gpp_mcm_inf_lbl_PresetName")
-        elseIf currentEvent == "Accept"
-			MCM.savePreset(currentStrVar)
-			MCM.ForcePageReset()
-        endIf 
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_inf_txt_savepreset")
+    endevent
+
+	event OnInputOpenST()
+		SetInputDialogStartText("$gpp_mcm_inf_lbl_PresetName")
+    endevent
+
+	event OnInputAcceptST(string input)
+		SaveMCMToPreset(input)
+	endevent
 endState
 
 State inf_men_loadpreset
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_inf_txt_loadpreset")
-        elseIf currentEvent == "Open"
-			saPresets = MCM.getPresets("$gpp_mcm_inf_lbl_noLoad")
-			MCM.fillMenu(0, saPresets, 0)
-        elseIf currentEvent == "Accept"
-			if (currentVar as int > 0)
-				MCM.loadPreset(saPresets[currentVar as int])
-			endIf
-        endIf 
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_inf_txt_loadpreset")
+    endevent
+
+	event OnMenuOpenST()
+		GetMCMSavedPresets(saPresets, "$gpp_mcm_inf_lbl_noLoad")
+		SetMenuDialog(saPresets, 0)
+    endevent
+
+	event OnMenuAcceptST(int index)
+		if index > 0
+			LoadMCMFromPreset(saPresets[index])
+			ForcePageReset()
+		endif
+	endevent
 endState
 
 State inf_men_deletepreset
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_inf_txt_deletepreset")
-        elseIf currentEvent == "Open"
-			saPresets = MCM.getPresets("$gpp_mcm_inf_lbl_noDelete")
-			MCM.fillMenu(0, saPresets, 0)
-        elseIf currentEvent == "Accept"
-			if (currentVar as int > 0)
-				MCM.deletePreset(saPresets[currentVar as int])
-				MCM.ForcePageReset()
-			endIf
-        endIf 
-    endEvent
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_inf_txt_deletepreset")
+    endevent
+
+	event OnMenuOpenST()
+		GetMCMSavedPresets(saPresets, "$gpp_mcm_inf_lbl_noDelete")
+		SetMenuDialog(saPresets, 0)
+    endevent
+
+	event OnMenuAcceptST(int index)
+		if index > 0
+			DeleteMCMSavedPreset(saPresets[index])
+		endif
+	endevent
 endState
 
 State inf_txt_reset
-    event OnBeginState()
-        if currentEvent == "Highlight"
-            MCM.SetInfoText("$gpp_mcm_inf_txt_reset")
-        elseIf currentEvent == "Select" && MCM.ShowMessage("$gpp_mcm_inf_msg_reset", true, "$gpp_mcm_inf_btn_reset", "$gpp_mcm_inf_btn_cancel")
-        	MCM.loadPreset("gpp_default_doNotDelete.gppd", true)
-        endIf
-    endEvent    
+    event OnHighlightST()
+        SetInfoText("$gpp_mcm_inf_txt_reset")
+    endevent
+
+	event OnSelectST()
+		if ShowMessage("$gpp_mcm_inf_msg_reset", true, "$gpp_mcm_inf_btn_reset", "$gpp_mcm_inf_btn_cancel")
+			LoadMCMFromPreset("gpp_default_doNotDelete.gppd", true)
+			ForcePageReset()
+		endif
+    endevent
 endState
